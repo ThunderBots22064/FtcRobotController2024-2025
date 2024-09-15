@@ -47,6 +47,7 @@ public class Test extends LinearOpMode {
             while (opModeIsActive()) {
                 telemetry.addData("Raw_left_stick_y", Float.toString(gamepad1.left_stick_y));
                 telemetry.addData("Raw_left_stick_y", Float.toString(gamepad1.left_stick_x));
+                telemetry.addData("\nbreak", "\n");
                 telemetry.addData("Raw_right_stick_y", Float.toString(gamepad1.right_stick_y));
                 telemetry.addData("Raw_right_stick_x", Float.toString(gamepad1.right_stick_x));
                 telemetry.update();
