@@ -40,12 +40,15 @@ public class Test extends LinearOpMode {
         // THIS IS TO SET MAX SPEED
         MAX_SPEED = 0.35;
         Arm_speed = 0.25;
-        error_corection = 0.25;
+
         waitForStart();
         if (opModeIsActive()) {
             // Put run blocks here.
             while (opModeIsActive()) {
-                telemetry.addData("sda", "text");
+                telemetry.addData("Raw_left_stick_y", Float.toString(gamepad1.left_stick_y));
+                telemetry.addData("Raw_left_stick_y", Float.toString(gamepad1.left_stick_x));
+                telemetry.addData("Raw_right_stick_y", Float.toString(gamepad1.right_stick_y));
+                telemetry.addData("Raw_right_stick_x", Float.toString(gamepad1.right_stick_x));
                 telemetry.update();
                 // FROINT AND BACK
                 BL2 += gamepad1.left_stick_y;
