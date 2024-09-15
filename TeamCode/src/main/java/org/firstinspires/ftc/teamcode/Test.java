@@ -27,6 +27,15 @@ public class Test extends LinearOpMode {
         DcMotor FL = hardwareMap.get(DcMotor.class, "FL");
         DcMotor FR = hardwareMap.get(DcMotor.class, "FR");
 
+        FL.resetDeviceConfigurationForOpMode();
+        FR.resetDeviceConfigurationForOpMode();
+        BL.resetDeviceConfigurationForOpMode();
+        BR.resetDeviceConfigurationForOpMode();
+
+//        FL.setDirection(DcMotor.Direction.REVERSE);
+        BR.setDirection(DcMotor.Direction.REVERSE);
+//        BL.setDirection(DcMotor.Direction.REVERSE);
+
 
         // THIS IS TO SET MAX SPEED
         MAX_SPEED = 0.35;
