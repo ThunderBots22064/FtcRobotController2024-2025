@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+//import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 @TeleOp(name = "_2324BLOCKCODE (Blocks to Java)")
 public class Test extends LinearOpMode {
+
 
     //motar speeds
     double BL_Power;
@@ -19,9 +21,9 @@ public class Test extends LinearOpMode {
     final double FL_Max_Power = 0.80;
     final double FR_Max_Power = 0.80;
     // this is for error correction
-    double Fl_Error_Correction;
+    double FL_Error_Correction;
     double FR_Error_Correction;
-    double Bl_Error_Correction;
+    double BL_Error_Correction;
     double BR_Error_Correction;
 
     public void Partal_reset_mem(){
@@ -37,6 +39,10 @@ public class Test extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        //Voltage sensor
+//        VoltageSensor myControlHubVoltageSensor;
+//        myControlHubVoltageSensor = hardwareMap.get(VoltageSensor.class, "Control Hub");
+//        double presentVoltage;
         // Setting up motars
         DcMotor BL = hardwareMap.get(DcMotor.class, "BL");
         DcMotor hook = hardwareMap.get(DcMotor.class, "Hook");
@@ -70,13 +76,13 @@ public class Test extends LinearOpMode {
                 telemetry.addData("\nbreak", "\n");
                 telemetry.addData("FL_Max_Power", FL_Max_Power);
                 telemetry.addData("FR_Max_Power", FR_Max_Power);
-                telemetry.addData("FL_Max_Power", BL_Max_Power);
-                telemetry.addData("FL_Max_Power", BR_Max_Power);
+                telemetry.addData("BL_Max_Power", BL_Max_Power);
+                telemetry.addData("BR_Max_Power", BR_Max_Power);
                 telemetry.addData("\nbreak", "\n");
-                telemetry.addData("FL_Max_Power", FL_Max_Power);
-                telemetry.addData("FR_Max_Power", FR_Max_Power);
-                telemetry.addData("FL_Max_Power", BL_Max_Power);
-                telemetry.addData("FL_Max_Power", BR_Max_Power);
+                telemetry.addData("FL_Error_Correction", FL_Error_Correction);
+                telemetry.addData("FR_Error_Correction", FR_Error_Correction);
+                telemetry.addData("BL_Error_Correction", BL_Error_Correction);
+                telemetry.addData("BR_Error_Correction", BR_Error_Correction);
 
 
 
@@ -99,13 +105,32 @@ public class Test extends LinearOpMode {
 
 
 
+                //Motar logic with error correction
+                BL_Power = BL_Power + (BL_Power * BL_Error_Correction);
+                if (BL_Power > BL_Max_Power){
+                    BL_Power = BL_Max_Power;
+                }
 
+                BR_Power = BR_Power + (BR_Power * BR_Error_Correction);
+                if (BR_Power > BL_Max_Power){
+                    BR_Power = BR_Max_Power;
+                }
 
-                hook.setPower(gamepad2.left_stick_y);
-                BL.setPower(BL_Power * BL_Max_Power);
-                BR.setPower(BR_Power * BR_Max_Power);
-                FL.setPower(FL_Power * FL_Max_Power);
-                FR.setPower(FR_Power * FR_Max_Power);
+                FL_Power = FL_Power + (FL_Power * FL_Error_Correction);
+                if (FL_Power > FL_Max_Power){
+                    FL_Power = FL_Max_Power;
+                }
+
+                FR_Power = FR_Power + (FR_Power * FR_Error_Correction);
+                if (FR_Power > FR_Max_Power){
+                    FR_Power = FR_Max_Power;
+                }
+
+                hook.setPower(ARM_Power);
+                BL.setPower(BL_Power);
+                BR.setPower(BR_Power);
+                FL.setPower(FL_Power);
+                FR.setPower(FR_Power);
                 // RESETS SO THAT THERE ISNT A INFINTE ADD LOOP
                 Partal_reset_mem();
                 telemetry.update();
