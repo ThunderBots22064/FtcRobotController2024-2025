@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 //import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-@TeleOp(name = "_2324BLOCKCODE (Blocks to Java)")
+@TeleOp(name = "Java_Code(Josh)")
 public class Test extends LinearOpMode {
 
 
@@ -14,17 +14,18 @@ public class Test extends LinearOpMode {
     double FL_Power;
     double FR_Power;
     double BR_Power;
-    double ARM_Power;
-    // THIS IS TO SET MAX SPEED
-    final double BL_Max_Power = 0.80;
+    double HOOK_Power;
+    // THIS IS TO SET MAX SPEED becacsue the motars are bad this is to acount it.
+    final double BL_Max_Power = 0.100;
     final double BR_Max_Power = 0.80;
     final double FL_Max_Power = 0.80;
     final double FR_Max_Power = 0.80;
     // this is for error correction
-    double FL_Error_Correction;
-    double FR_Error_Correction;
-    double BL_Error_Correction;
-    double BR_Error_Correction;
+    double BL_Error_Correction = .20;
+    double BR_Error_Correction = .0;
+    double FL_Error_Correction = .0;
+    double FR_Error_Correction = .0;
+
 
     public void Partal_reset_mem(){
         BL_Power = 0;
@@ -45,7 +46,7 @@ public class Test extends LinearOpMode {
 //        double presentVoltage;
         // Setting up motars
         DcMotor BL = hardwareMap.get(DcMotor.class, "BL");
-        DcMotor hook = hardwareMap.get(DcMotor.class, "Hook");
+        DcMotor Hook = hardwareMap.get(DcMotor.class, "Hook");
         DcMotor BR = hardwareMap.get(DcMotor.class, "BR");
         DcMotor FL = hardwareMap.get(DcMotor.class, "FL");
         DcMotor FR = hardwareMap.get(DcMotor.class, "FR");
@@ -112,7 +113,7 @@ public class Test extends LinearOpMode {
                 }
 
                 BR_Power = BR_Power + (BR_Power * BR_Error_Correction);
-                if (BR_Power > BL_Max_Power){
+                if (BR_Power > BR_Max_Power){
                     BR_Power = BR_Max_Power;
                 }
 
@@ -126,12 +127,12 @@ public class Test extends LinearOpMode {
                     FR_Power = FR_Max_Power;
                 }
 
-                hook.setPower(ARM_Power);
+                Hook.setPower(HOOK_Power);
                 BL.setPower(BL_Power);
                 BR.setPower(BR_Power);
                 FL.setPower(FL_Power);
                 FR.setPower(FR_Power);
-                // RESETS SO THAT THERE ISNT A INFINTE ADD LOOP
+                // RESETS SO THAT THERE is not a infinte add loop
                 Partal_reset_mem();
                 telemetry.update();
             }
