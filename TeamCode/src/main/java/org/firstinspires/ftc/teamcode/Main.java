@@ -21,6 +21,8 @@ public class Main extends OpMode {
         } else {
             slide.stop();
         }
+
+        Math.sqrt((gamepad1.left_stick_y ^) 2 + (gamepad1.left_stick_x ^ 2))
 //        telemetry.add("Slide target: ", slide.getTarget());
     }
 }
