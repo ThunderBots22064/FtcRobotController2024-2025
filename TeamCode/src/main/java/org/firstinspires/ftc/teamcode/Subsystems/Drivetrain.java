@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.robotcore.hardware.*;
+import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
+
 import java.lang.Math.*;
 
 public class Drivetrain {
@@ -9,8 +11,13 @@ public class Drivetrain {
     public Drivetrain(HardwareMap hardwareMap) {
         String[] motorMaps = {"frontLeft", "frontRight",
                                "backLeft", "backRight"};
+
+        Direction[] motorDirs = {Direction.REVERSE, Direction.REVERSE,
+                                 Direction.FORWARD, Direction.REVERSE};
+
         for (int i = 0; i < motors.length; i++) {
             motors[i] = hardwareMap.get(DcMotor.class, motorMaps[i]);
+            motors[i].setDirection(motorDirs[i]);
         }
     }
 
