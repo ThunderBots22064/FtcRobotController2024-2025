@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.*;
 
 public class ViperSlide {
-    private DcMotor slide = null;
+    final private DcMotor slide;
 
     private int target = 0;
 

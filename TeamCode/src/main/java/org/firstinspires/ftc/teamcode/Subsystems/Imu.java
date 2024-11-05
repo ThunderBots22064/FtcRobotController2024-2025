@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 // This subsystem maintains the Inertial Measurement Unit or IMU for short
 // It assists in getting the robots orientation
 public class Imu {
-    private IMU imu;
+    final private IMU imu;
 
     public Imu(HardwareMap hardwareMap) {
         imu = hardwareMap.get(IMU.class, "imu");
