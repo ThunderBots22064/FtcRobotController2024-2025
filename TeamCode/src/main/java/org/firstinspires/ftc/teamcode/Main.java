@@ -29,7 +29,8 @@ public class Main extends OpMode {
         double yComponent = gamepad1.left_stick_y;
         double magnitude = Math.sqrt(Math.pow(xComponent, 2) + Math.pow(yComponent, 2));
         double angle = Math.atan2(yComponent, xComponent);
-        drivetrain.drive(angle, magnitude);
+        double turn = gamepad1.right_trigger - gamepad1.left_trigger;
+        drivetrain.drive(angle, magnitude, turn);
         //        telemetry.add("Slide target: ", slide.getTarget());
     }
 }
