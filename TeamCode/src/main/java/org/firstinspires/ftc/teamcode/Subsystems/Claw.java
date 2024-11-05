@@ -2,16 +2,16 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.*;
 
 public class Claw {
-    private Servo servo1 = null;
+    private Servo claw;
     public Claw (HardwareMap hardwareMap) {
-        servo1 = hardwareMap.get(Servo.class, "servo1");
+        claw = hardwareMap.get(Servo.class, "claw");
     }
 
     public void open() {
-       servo1.setPosition(0); //temp position
+       claw.setPosition(0); //temp position
     }
 
     public void close() {
-        servo1.setPosition(1); //temp position
+        claw.setPosition(1); //temp position
     }
 }
