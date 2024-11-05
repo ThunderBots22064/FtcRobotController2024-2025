@@ -17,7 +17,8 @@ public class Drivetrain {
     /**
      * A function to drive the robot in a certain direction
      * @param angle The angle to drive the robot in radians, positive values are clockwise from the positive x-axis, e.g. +Pi/2 rad. is forward
-     * @param power A value from -1.0 to 1.0 specifying the power
+     * @param magnitude A value from 0 to 1.0 representing the magnitude of the vector of drive
+     * @param turn A value between -1.0 and 1.0 representing the turn power, -1.0 is full anticlockwise while 1.0 is full clockwise
      */
     public void drive(double angle, double power) {
         // Rotate the angle PI/4 rad. clockwise (Anticlockwise is superior to Counterclockwise)
