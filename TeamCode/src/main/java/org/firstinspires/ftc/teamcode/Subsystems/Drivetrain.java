@@ -47,6 +47,16 @@ public class Drivetrain {
         drive(angle, magnitude, turn, this.speed);
     }
 
+    /**
+     * A function to drive the robot in a certain direction (capped at the subsystem's speed)
+     * @param angle The angle to drive the robot in radians, positive values are clockwise from the positive x-axis, e.g. +Pi/2 rad. is forward
+     * @param magnitude A value from 0 to 1.0 representing the magnitude of the vector of drive
+     * @param turn A value between -1.0 and 1.0 representing the turn power, -1.0 is full anticlockwise while 1.0 is full clockwise
+     * @param slow If true the robot will drive at half of the subsystem's speed
+     */
+    public void drive(double angle, double magnitude, double turn, boolean slow) {
+        drive(angle, magnitude, turn, this.speed);
+    }
 
     /**
      * A function to drive the robot in a certain direction
