@@ -3,8 +3,8 @@ import com.qualcomm.robotcore.hardware.*;
 
 // IMPLEMENT WRIST!!!!
 public class Claw {
-    private Servo claw;
-    private Servo wrist;
+    final private Servo claw;
+    final private Servo wrist;
 
     double wristPos = 0;
     double wristIncrement = 0.05;
