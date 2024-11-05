@@ -12,7 +12,7 @@ public class ViperSlide {
     final int floor = 0;
 
     public ViperSlide(HardwareMap hardwareMap) {
-        slide = hardwareMap.get(DcMotor.class, "Slide");
+        slide = hardwareMap.get(DcMotor.class, "slide");
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
