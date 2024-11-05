@@ -35,8 +35,8 @@ public class Drivetrain {
     }
 
     public void stop() {
-        for (int i = 0; i < motors.length; i++) {
-            motors.setPower(0);
+        for (DcMotor motor : motors) {
+            motor.setPower(0);
         }
     }
 
