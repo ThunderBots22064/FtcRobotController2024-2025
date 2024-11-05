@@ -20,17 +20,50 @@ public class Drivetrain {
      * @param magnitude A value from 0 to 1.0 representing the magnitude of the vector of drive
      * @param turn A value between -1.0 and 1.0 representing the turn power, -1.0 is full anticlockwise while 1.0 is full clockwise
      */
-    public void drive(double angle, double power) {
+    public void drive(double angle, double magnitude, double turn) {
+        // Turn values to apply to the left and right side of the robot
+        double lTurn = turn;
+        double rTurn = -turn;
+
         // Rotate the angle PI/4 rad. clockwise (Anticlockwise is superior to Counterclockwise)
         double theta = angle - (Math.PI / 4.0);
 
-        double forward = Math.cos(theta) * power;
-        double side = Math.sin(theta) * power;
+        // Find the forward and side components of power
+        /*
+         Note: Although these both could be multiplied by magnitude (hypotenuse) to find their true values
+         (these trigonometric functions are ratios with the hypotenuse in the denominator)
+         they will be divided by the maximum value which would immediately cancel this value i.e. ((cos / hyp) * hyp) / hyp
+         Additionally, the magnitude is assumed to be 1 with these functions so this is unneccesary
+         Also additionally, the magnitude will be multiplied after they have been scaled to the proper motor outputs
+         */
 
-        motors[1].setPower(forward);
-        motors[2].setPower(forward);
-        motors[0].setPower(side);
-        motors[3].setPower(side);
+        double forward = Math.cos(theta);
+        double side = Math.sin(theta);
+
+        double max = Math.max(Math.abs(forward), Math.abs(side));
+        /*
+        * To get the most out of the motors a maximum value must be reached
+        * The possible values for forward and side follow values of cos and sin on a unit circle
+        * That being said motors can be set to greater powers
+        * Take for example a Pi/4 angle.
+        * The sin and cos of Pi/4 is sqrt(2)/2
+        * Assuming the magnitude is 1 the value doesn't change
+        * But the motors can be set to values greater than sqrt(2)/2
+        * So they are thus divided by max to scale them to their maximum possible values
+        * Finally, multiplying by magnitude allows for variation in control
+        * */
+
+        double[] drivePowers = new double[4];
+
+        drivePowers[0] = magnitude * (side / max) + lTurn;
+        drivePowers[3] = magnitude * (side / max) + rTurn;
+        drivePowers[1] = magnitude * (forward / max) + rTurn;
+        drivePowers[2] = magnitude * (forward / max) + lTurn;
+
+        // Set the motors to clamped values between -1.0 and 1.0 - it's not pretty but each motor needs to be set to a different value
+        for (int i = 0; i < motors.length; i++) {
+            motors[i].setPower( clamp(-1.0, 1.0, drivePowers[i]) );
+        }
     }
 
     public void stop() {
