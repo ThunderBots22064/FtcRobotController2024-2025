@@ -44,7 +44,7 @@ public class Main extends OpMode {
         }
 
 //        Calculate the value from the controller to give to the drivetrain
-        double xComponent = deadzone(gamepad1.left_stick_x, 0.15);
+        double xComponent = deadzone(gamepad1.right_stick_x, 0.15);
         // Note that the y-value on joysticks is negative for forward values so it's reversed here
         double yComponent = -deadzone(gamepad1.left_stick_y, 0.15);
         double magnitude = Math.sqrt(Math.pow(xComponent, 2) + Math.pow(yComponent, 2));
