@@ -14,6 +14,7 @@ public class ViperSlide {
     public ViperSlide(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public int getTarget() {

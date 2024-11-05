@@ -14,6 +14,7 @@ public class Hook {
     public Hook(HardwareMap hardwareMap) {
         hook = hardwareMap.get(DcMotor.class, "hook");
         hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hook.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public int getTarget() {
