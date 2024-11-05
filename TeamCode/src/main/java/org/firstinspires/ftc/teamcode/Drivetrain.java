@@ -4,11 +4,11 @@ import com.qualcomm.robotcore.hardware.*;
 import java.lang.Math.*;
 
 public class Drivetrain {
-    private DcMotor[4] motors = null;
+    private DcMotor[] motors = new DcMotor[4];
 
     public Drivetrain(HardwareMap hardwareMap) {
-        String[4] motorMaps = ["frontLeft", "frontRight",
-                               "backLeft", "backRight"];
+        String[] motorMaps = {"frontLeft", "frontRight",
+                               "backLeft", "backRight"};
         for (int i = 0; i < motors.length; i++) {
             motors[i] = hardwareMap.get(DcMotor.class, motorMaps[i]);
         }
