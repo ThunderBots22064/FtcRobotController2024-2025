@@ -22,7 +22,7 @@ public class Main extends OpMode {
     public void init() {
         slide = new ViperSlide(hardwareMap);
         hook = new Hook(hardwareMap);
-        drivetrain = new Drivetrain(hardwareMap);
+        drivetrain = new Drivetrain(hardwareMap, 0.7);
         imu = new Imu(hardwareMap);
         claw = new Claw(hardwareMap);
     }
@@ -52,7 +52,9 @@ public class Main extends OpMode {
             angle -= imu.getRawHeading();
         }
 
-        drivetrain.drive(angle, magnitude, turn);
+        boolean slowMode = gamepad1.y;
+
+        drivetrain.drive(angle, magnitude, turn, slowMode);
         //        telemetry.add("Slide target: ", slide.getTarget());
 
 
