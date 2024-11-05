@@ -11,6 +11,7 @@ public class Main extends OpMode {
     ViperSlide slide;
     Drivetrain drivetrain;
     Imu imu;
+    Hook hook;
 
     boolean fieldOriented = false;
     OnPress orientSwitch = new OnPress();
@@ -19,20 +20,13 @@ public class Main extends OpMode {
     @Override
     public void init() {
         slide = new ViperSlide(hardwareMap);
+        hook = new Hook(hardwareMap);
         drivetrain = new Drivetrain(hardwareMap);
         imu = new Imu(hardwareMap);
     }
 
     @Override
     public void loop() {
-        if (gamepad1.y) {
-            slide.up();
-        } else if (gamepad1.a) {
-            slide.down();
-        } else {
-            slide.stop();
-        }
-
         // Toggle field oriented modes only when both bumpers are pressed (Without repeatedly toggling)
         if (orientSwitch.pressed(gamepad1.left_bumper && gamepad1.right_bumper)) {
             fieldOriented = !fieldOriented;
@@ -58,6 +52,24 @@ public class Main extends OpMode {
 
         drivetrain.drive(angle, magnitude, turn);
         //        telemetry.add("Slide target: ", slide.getTarget());
+
+
+        /* --- GAMEPAD 2 --- */
+        if (gamepad2.y) {
+            slide.up();
+        } else if (gamepad2.a) {
+            slide.down();
+        } else {
+            slide.stop();
+        }
+
+        if (gamepad2.y) {
+            hook.up();
+        } else if (gamepad2.a) {
+            hook.down();
+        } else {
+            hook.stop();
+        }
     }
 
     /**
