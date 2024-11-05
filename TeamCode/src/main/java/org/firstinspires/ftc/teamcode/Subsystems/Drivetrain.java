@@ -7,27 +7,55 @@ import java.lang.Math.*;
 
 public class Drivetrain {
     private DcMotor[] motors = new DcMotor[4];
+    private double speed = 1.0;
 
+    /**
+     * Constructor for the drivetrain subsystem
+     * @param hardwareMap The hardware map to get motors from
+     */
     public Drivetrain(HardwareMap hardwareMap) {
+        this(hardwareMap, 1.0);
+    }
+
+    /**
+     * Constructor for the drivetrain subsystem
+     * @param hardwareMap The hardware map to get motors from
+     * @param speed The max speed (unless otherwise specified) to use for driving
+     */
+    public Drivetrain(HardwareMap hardwareMap, double speed) {
         String[] motorMaps = {"frontLeft", "frontRight",
-                               "backLeft", "backRight"};
+                "backLeft", "backRight"};
 
         Direction[] motorDirs = {Direction.REVERSE, Direction.REVERSE,
-                                 Direction.FORWARD, Direction.REVERSE};
+                Direction.FORWARD, Direction.REVERSE};
 
         for (int i = 0; i < motors.length; i++) {
             motors[i] = hardwareMap.get(DcMotor.class, motorMaps[i]);
             motors[i].setDirection(motorDirs[i]);
         }
+
+        this.speed = speed;
     }
+
+    /**
+     * A function to drive the robot in a certain direction (capped at the subsystem's speed)
+     * @param angle The angle to drive the robot in radians, positive values are clockwise from the positive x-axis, e.g. +Pi/2 rad. is forward
+     * @param magnitude A value from 0 to 1.0 representing the magnitude of the vector of drive
+     * @param turn A value between -1.0 and 1.0 representing the turn power, -1.0 is full anticlockwise while 1.0 is full clockwise
+     */
+    public void drive(double angle, double magnitude, double turn) {
+        drive(angle, magnitude, turn, this.speed);
+    }
+
 
     /**
      * A function to drive the robot in a certain direction
      * @param angle The angle to drive the robot in radians, positive values are clockwise from the positive x-axis, e.g. +Pi/2 rad. is forward
      * @param magnitude A value from 0 to 1.0 representing the magnitude of the vector of drive
      * @param turn A value between -1.0 and 1.0 representing the turn power, -1.0 is full anticlockwise while 1.0 is full clockwise
+     * @param speed The maximum possible motor speed (i.e. 0.40 is 40% of max speed)
      */
-    public void drive(double angle, double magnitude, double turn) {
+    public void drive(double angle, double magnitude, double turn, double speed) {
         // Turn values to apply to the left and right side of the robot
         double lTurn = turn;
         double rTurn = -turn;
@@ -62,10 +90,10 @@ public class Drivetrain {
 
         double[] drivePowers = new double[4];
 
-        drivePowers[0] = magnitude * (side / max) + lTurn;
-        drivePowers[3] = magnitude * (side / max) + rTurn;
-        drivePowers[1] = magnitude * (forward / max) + rTurn;
-        drivePowers[2] = magnitude * (forward / max) + lTurn;
+        drivePowers[0] = speed * (magnitude * (side / max) + lTurn);
+        drivePowers[3] = speed * (magnitude * (side / max) + rTurn);
+        drivePowers[1] = speed * (magnitude * (forward / max) + rTurn);
+        drivePowers[2] = speed * (magnitude * (forward / max) + lTurn);
 
         // Set the motors to clamped values between -1.0 and 1.0 - it's not pretty but each motor needs to be set to a different value
         for (int i = 0; i < motors.length; i++) {
