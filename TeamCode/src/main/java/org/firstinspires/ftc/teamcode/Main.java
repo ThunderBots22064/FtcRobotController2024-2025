@@ -24,7 +24,12 @@ public class Main extends OpMode {
             slide.stop();
         }
 
-        Math.sqrt((gamepad1.left_stick_y ^) 2 + (gamepad1.left_stick_x ^ 2))
-//        telemetry.add("Slide target: ", slide.getTarget());
+//        Calculate the value from the controller to give to the drivetrain
+        double xComponent = gamepad1.left_stick_x;
+        double yComponent = gamepad1.left_stick_y;
+        double magnitude = Math.sqrt(Math.pow(xComponent, 2) + Math.pow(yComponent, 2));
+        double angle = Math.atan2(yComponent, xComponent);
+        drivetrain.drive(angle, magnitude);
+        //        telemetry.add("Slide target: ", slide.getTarget());
     }
 }
