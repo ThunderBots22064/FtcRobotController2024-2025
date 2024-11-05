@@ -38,4 +38,14 @@ public class Drivetrain {
         }
     }
 
+    /**
+     * A method to clamp values within a range
+     * @param minimum The minimum value
+     * @param maximum The maximum value
+     * @param val The value to clamp
+     * @return A value between minimum and maximum inclusive
+     */
+    private double clamp(double minimum, double maximum, double val) {
+        return Math.min(Math.max(val, minimum), maximum);
+    }
 }
