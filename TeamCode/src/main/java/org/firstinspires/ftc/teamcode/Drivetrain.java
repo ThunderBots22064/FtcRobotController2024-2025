@@ -16,8 +16,8 @@ public class Drivetrain {
 
     /**
      * drive - A function to drive the robot in a certain direction
-     * angle - A value from 0 to 360 degrees, 0 degrees is a heading straight foward relative to the robot, 90 degrees is straight left
-     * power - A double from -1.0 to 1.0 specifying the power
+     * @param angle - A value from 0 to 360 degrees, 0 degrees is a heading straight foward relative to the robot, 90 degrees is straight left
+     * @param power - A double from -1.0 to 1.0 specifying the power
      */
     public void drive(int angle, double power) {
         // Convert the angle into radians
