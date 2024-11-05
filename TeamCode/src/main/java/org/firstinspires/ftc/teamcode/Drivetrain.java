@@ -29,7 +29,7 @@ public class Drivetrain {
         motors[1].setPower(forward);
         motors[2].setPower(forward);
         motors[0].setPower(side);
-        motors[4].setPower(side);
+        motors[3].setPower(side);
     }
 
     public void stop() {
