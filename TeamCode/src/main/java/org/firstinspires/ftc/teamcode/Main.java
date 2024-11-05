@@ -57,7 +57,7 @@ public class Main extends OpMode {
 
 
         /* --- GAMEPAD 2 --- */
-        slide.run(deadzone(gamepad2.right_stick_y, 0.1));
+        slide.run(deadzone(-gamepad2.right_stick_y, 0.1));
 
         if (gamepad2.y) {
             hook.up();
@@ -71,6 +71,13 @@ public class Main extends OpMode {
             claw.close();
         } else if (gamepad2.left_trigger > 0.5) {
             claw.open();
+        }
+
+        double wristRot = deadzone(-gamepad2.left_stick_y, 0.1);
+        if (wristRot > 0) {
+            claw.up();
+        } else if (wristRot < 0) {
+            claw.down();
         }
     }
 
