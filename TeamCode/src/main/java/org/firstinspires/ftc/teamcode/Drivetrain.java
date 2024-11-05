@@ -15,23 +15,21 @@ public class Drivetrain {
     }
 
     /**
-     * drive - A function to drive the robot in a certain direction
-     * @param angle - A value from 0 to 360 degrees, 0 degrees is a heading straight foward relative to the robot, 90 degrees is straight left
-     * @param power - A double from -1.0 to 1.0 specifying the power
+     * A function to drive the robot in a certain direction
+     * @param angle The angle to drive the robot in radians, positive values are clockwise from the positive x-axis, e.g. +Pi/2 rad. is forward
+     * @param power A value from -1.0 to 1.0 specifying the power
      */
-    public void drive(int angle, double power) {
-        // Convert the angle into radians
-        double theta = Math.toRadians(angle);
-        // Rotate the angle 45 degrees over (PI / 4)
-        theta -= (Math.PI / 4.0);
+    public void drive(double angle, double power) {
+        // Rotate the angle PI/4 rad. clockwise (Anticlockwise is superior to Counterclockwise)
+        double theta = angle - (Math.PI / 4.0);
 
         double forward = Math.cos(theta) * power;
         double side = Math.sin(theta) * power;
 
-        motors[0].setPower(forward);
-        motors[4].setPower(forward);
-        motors[1].setPower(side);
-        motors[2].setPower(side); 
+        motors[1].setPower(forward);
+        motors[2].setPower(forward);
+        motors[0].setPower(side);
+        motors[4].setPower(side);
     }
 
     public void stop() {
