@@ -12,6 +12,7 @@ public class Main extends OpMode {
     Drivetrain drivetrain;
     Imu imu;
     Hook hook;
+    Claw claw;
 
     boolean fieldOriented = false;
     OnPress orientSwitch = new OnPress();
@@ -23,6 +24,7 @@ public class Main extends OpMode {
         hook = new Hook(hardwareMap);
         drivetrain = new Drivetrain(hardwareMap);
         imu = new Imu(hardwareMap);
+        claw = new Claw(hardwareMap);
     }
 
     @Override
@@ -63,6 +65,12 @@ public class Main extends OpMode {
             hook.down();
         } else {
             hook.stop();
+        }
+
+        if (gamepad2.right_trigger > 0.5) {
+            claw.close();
+        } else if (gamepad2.left_trigger > 0.5) {
+            claw.open();
         }
     }
 
