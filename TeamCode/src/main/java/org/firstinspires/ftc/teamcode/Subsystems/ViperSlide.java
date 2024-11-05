@@ -13,32 +13,22 @@ public class ViperSlide {
 
     public ViperSlide(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "Slide");
-        slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public int getTarget() {
         return target;
     }
 
-    public void up() {
-        target += 10;
-        if (target > ceil) {
-            target = ceil;
+    public void run(double power) {
+        if (slide.getCurrentPosition() >= ceil || slide.getCurrentPosition() <= floor) {
+            stop();
+            return;
         }
-        slide.setTargetPosition(target);
-    }
-
-    public void down() {
-        target -= 10;
-        if (target < floor) {
-            target = floor;
-        }
-        slide.setTargetPosition(target);
+        slide.setPower(power);
     }
 
     public void stop() {
         slide.setPower(0);
     }
-
-
 }
