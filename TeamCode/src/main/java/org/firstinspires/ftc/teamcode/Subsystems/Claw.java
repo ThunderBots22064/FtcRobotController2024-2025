@@ -8,6 +8,9 @@ public class Claw {
     public Claw (HardwareMap hardwareMap) {
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
+
+        claw.setDirection(Servo.Direction.FORWARD);
+        wrist.setDirection(Servo.Direction.FORWARD);
     }
 
     public void open() {
