@@ -16,6 +16,7 @@ AKA its wheels!
 Here are your controls:
 - Left joystick vertical (up/down) - Moves the robot forward and backward
 - Right joystick horizontal (left/right) - Moves the robot side to side
+- 'Y' \[toggle\] - When y is pressed the robot will enter slow mode halving its speed for precise movements
 - Left trigger - Turns the robot counterclockwise
 - Right trigger - Turns the robot clockwise
 - Pressing both bumpers - Switches between field-oriented and robot-oriented mode
