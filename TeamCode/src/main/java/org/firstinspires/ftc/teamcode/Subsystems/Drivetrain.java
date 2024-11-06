@@ -26,8 +26,8 @@ public class Drivetrain {
         String[] motorMaps = {"frontLeft", "frontRight",
                 "backLeft", "backRight"};
 
-        Direction[] motorDirs = {Direction.REVERSE, Direction.REVERSE,
-                Direction.FORWARD, Direction.REVERSE};
+        Direction[] motorDirs = {Direction.FORWARD, Direction.FORWARD,
+                Direction.REVERSE, Direction.FORWARD};
 
         for (int i = 0; i < motors.length; i++) {
             motors[i] = hardwareMap.get(DcMotor.class, motorMaps[i]);
