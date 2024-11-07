@@ -100,10 +100,10 @@ public class Drivetrain {
 
         double[] drivePowers = new double[4];
 
-        drivePowers[0] = speed * (magnitude * (side / max) + lTurn);
-        drivePowers[3] = speed * (magnitude * (side / max) + rTurn);
-        drivePowers[1] = speed * (magnitude * (forward / max) + rTurn);
-        drivePowers[2] = speed * (magnitude * (forward / max) + lTurn);
+        drivePowers[0] = speed * (magnitude * (forward / max) + lTurn);
+        drivePowers[3] = speed * (magnitude * (forward / max) + rTurn);
+        drivePowers[1] = speed * (magnitude * (side / max) + rTurn);
+        drivePowers[2] = speed * (magnitude * (side / max) + lTurn);
 
         // Set the motors to clamped values between -1.0 and 1.0 - it's not pretty but each motor needs to be set to a different value
         for (int i = 0; i < motors.length; i++) {
