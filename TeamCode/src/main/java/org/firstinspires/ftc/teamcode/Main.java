@@ -75,12 +75,7 @@ public class Main extends OpMode {
             claw.open();
         }
 
-        double wristRot = deadzone(-gamepad2.left_stick_y, 0.1);
-        if (wristRot > 0) {
-            claw.up();
-        } else if (wristRot < 0) {
-            claw.down();
-        }
+        claw.tilt(deadzone(-gamepad2.left_stick_y, 0.1));
     }
 
     /**
