@@ -55,7 +55,9 @@ public class Drivetrain {
      * @param slow If true the robot will drive at half of the subsystem's speed
      */
     public void drive(double angle, double magnitude, double turn, boolean slow) {
-        drive(angle, magnitude, turn, (this.speed / 2));
+        // Ternary operator is used here so if slow is true speed is multiplied by 0.5 (1/2).
+        double calculatedSpeed = this.speed * (slow ? 0.5 : 1);
+        drive(angle, magnitude, turn, calculatedSpeed);
     }
 
     /**
