@@ -25,24 +25,30 @@ public class Hook {
     }
 
     public void up() {
+        if (hook.isBusy()) {
+            return;
+        }
         target += 10;
         if (target > ceil) {
             target = ceil;
         }
         hook.setTargetPosition(target);
+        hook.setPower(0.4);
     }
 
     public void down() {
+        if (hook.isBusy()) {
+            return;
+        }
         target -= 10;
         if (target < floor) {
             target = floor;
         }
         hook.setTargetPosition(target);
+        hook.setPower(0.4);
     }
 
     public void stop() {
         hook.setPower(0);
     }
-
-
 }
