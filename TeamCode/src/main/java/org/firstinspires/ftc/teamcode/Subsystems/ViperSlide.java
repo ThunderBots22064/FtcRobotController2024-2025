@@ -13,6 +13,7 @@ public class ViperSlide {
 
     public ViperSlide(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
+        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide.setDirection(DcMotorSimple.Direction.REVERSE);
     }
@@ -22,7 +23,11 @@ public class ViperSlide {
     }
 
     public void run(double power) {
-        if (slide.getCurrentPosition() >= ceil || slide.getCurrentPosition() <= floor) {
+        if (slide.getCurrentPosition() >= ceil && power > 0) {
+            stop();
+            return;
+        }
+        if (slide.getCurrentPosition() <= floor && power < 0) {
             stop();
             return;
         }
