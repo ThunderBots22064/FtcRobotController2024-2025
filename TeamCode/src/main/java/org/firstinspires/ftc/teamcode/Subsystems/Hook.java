@@ -13,9 +13,11 @@ public class Hook {
 
     public Hook(HardwareMap hardwareMap) {
         hook = hardwareMap.get(DcMotor.class, "hook");
+        hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hook.setTargetPosition(0);
         hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
+        hook.setPower(0.4);
     }
 
     public int getTarget() {
