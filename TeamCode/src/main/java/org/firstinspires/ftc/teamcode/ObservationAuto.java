@@ -3,10 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.eventloop.opmode.*;
 
-import org.firstinspires.ftc.teamcode.Subsystems.*;
-import org.firstinspires.ftc.teamcode.Utils.*;
-@Autonomous(name = "RedNetAuto")
-public class RedNetAuto extends LinearOpMode{
+@Autonomous(name = "RedObservationAuto")
+public class ObservationAuto extends LinearOpMode{
     private DcMotor FR;
     private DcMotor FL;
     private DcMotor BR;
@@ -92,10 +90,9 @@ public class RedNetAuto extends LinearOpMode{
     }
 
     private void slide_Up(double time__in_seconds_, double power){
-        while (opModeIsActive() && (slide.getCurrentPosition() < ceil || slide.getCurrentPosition() > floor)) {
+        while (slide.getCurrentPosition() < ceil || slide.getCurrentPosition() > floor) {
             slide.setPower(power);
             sleep((long) (time__in_seconds_ * 1000));
-
         }
         slide.setPower(0);
         sleep( 2000);
@@ -121,37 +118,12 @@ public class RedNetAuto extends LinearOpMode{
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        /*
-        //red net zone side (complex w/ pre-load)
-        forward(0.15,0.25);
-        strafe_Left(1.5,0.25);
-        turn_Left(0.25, 0.25);
-        slide_Up(1,0.25);
-        wrist.setPosition(0);
-        wrist.setPosition(-0.15);
-        claw.setPosition(0.7);
-        backward(0.15, 0.25);
-        turn_Right(0.25, 0.25);
-        forward(1.25,0.25);
-        strafe_Right(1.5,0.25);
-        stop(2);
-         */
 
-        //red net zone side (simple park)
-        /*strafe_Left(0.5, 0.75);
-        forward(1,0.75);
-        strafe_Right(0.4, 0.75);
-        turn_Right(0.1, 0.75);
-        slide_Up(0.2,0.75); // too long, maybe half or third
+        //red observation zone side (simple park)
+        forward(0.1, 0.75); // original time = 0.15s
+        turn_Right(0.4, 0.75);
+        forward(0.5,0.75);
         stop(2);
-
-         */
-        strafe_Left(0.5, 0.25);
-        forward(1.5,0.25);
-        strafe_Right(0.5, 0.25);
-        slide_Up(0.2,0.25);
-        stop(2);
-
     }
 
 }

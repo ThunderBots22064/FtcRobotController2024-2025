@@ -13,15 +13,17 @@ public class Hook {
 
     public Hook(HardwareMap hardwareMap) {
         hook = hardwareMap.get(DcMotor.class, "hook");
-        hook.setTargetPosition(0);
-        hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        hook.setTargetPosition(0);
+//        hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public int getTarget() {
         return target;
     }
-
+    public void setPower(double power) {
+        hook.setPower(power);
+    }
     public void up() {
         target += 10;
         if (target > ceil) {
