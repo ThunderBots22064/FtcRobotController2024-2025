@@ -55,7 +55,9 @@ public class Drivetrain {
      * @param slow If true the robot will drive at half of the subsystem's speed
      */
     public void drive(double angle, double magnitude, double turn, boolean slow) {
-        drive(angle, magnitude, turn, this.speed);
+        // Ternary operator is used here so if slow is true speed is multiplied by 0.5 (1/2).
+        double calculatedSpeed = this.speed * (slow ? 0.5 : 1);
+        drive(angle, magnitude, turn, calculatedSpeed);
     }
 
     /**
@@ -100,10 +102,10 @@ public class Drivetrain {
 
         double[] drivePowers = new double[4];
 
-        drivePowers[0] = speed * (magnitude * (side / max) + lTurn);
-        drivePowers[3] = speed * (magnitude * (side / max) + rTurn);
-        drivePowers[1] = speed * (magnitude * (forward / max) + rTurn);
-        drivePowers[2] = speed * (magnitude * (forward / max) + lTurn);
+        drivePowers[0] = speed * (magnitude * (forward / max) + lTurn);
+        drivePowers[3] = speed * (magnitude * (forward / max) + rTurn);
+        drivePowers[1] = speed * (magnitude * (side / max) + rTurn);
+        drivePowers[2] = speed * (magnitude * (side / max) + lTurn);
 
         // Set the motors to clamped values between -1.0 and 1.0 - it's not pretty but each motor needs to be set to a different value
         for (int i = 0; i < motors.length; i++) {

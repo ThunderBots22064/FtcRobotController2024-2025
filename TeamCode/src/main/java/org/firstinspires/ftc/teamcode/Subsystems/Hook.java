@@ -13,36 +13,42 @@ public class Hook {
 
     public Hook(HardwareMap hardwareMap) {
         hook = hardwareMap.get(DcMotor.class, "hook");
-//        hook.setTargetPosition(0);
-//        hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hook.setTargetPosition(0);
+        hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hook.setDirection(DcMotorSimple.Direction.FORWARD);
+        hook.setPower(0.4);
     }
 
     public int getTarget() {
         return target;
     }
-    public void setPower(double power) {
-        hook.setPower(power);
-    }
+
     public void up() {
+        if (hook.isBusy()) {
+            return;
+        }
         target += 10;
         if (target > ceil) {
             target = ceil;
         }
         hook.setTargetPosition(target);
+        hook.setPower(0.4);
     }
 
     public void down() {
+        if (hook.isBusy()) {
+            return;
+        }
         target -= 10;
         if (target < floor) {
             target = floor;
         }
         hook.setTargetPosition(target);
+        hook.setPower(0.4);
     }
 
     public void stop() {
         hook.setPower(0);
     }
-
-
 }

@@ -12,6 +12,7 @@ Drivetrain:
 Claw:
 - Servos
   - Gripper/Claw - "claw"
+- CRServos
   - Wrist - "wrist"
 
 Hook

@@ -22,7 +22,7 @@ public class Main extends OpMode {
     public void init() {
         slide = new ViperSlide(hardwareMap);
         hook = new Hook(hardwareMap);
-        drivetrain = new Drivetrain(hardwareMap, 0.7);
+        drivetrain = new Drivetrain(hardwareMap, 0.60);
         imu = new Imu(hardwareMap);
         claw = new Claw(hardwareMap);
     }
@@ -42,8 +42,8 @@ public class Main extends OpMode {
 //        Calculate the value from the controller to give to the drivetrain
         double xComponent = deadzone(gamepad1.right_stick_x, 0.15);
         // Note that the y-value on joysticks is negative for forward values so it's reversed here
-        double yComponent = -deadzone(gamepad1.left_stick_y, 0.15);
-        double magnitude = Math.sqrt(Math.pow(xComponent, 2) + Math.pow(yComponent, 2));
+        double yComponent = deadzone(-gamepad1.left_stick_y, 0.15);
+        double magnitude = Math.hypot(xComponent, yComponent);
         double angle = Math.atan2(yComponent, xComponent);
         double turn = deadzone(gamepad1.right_trigger, 0.1) - deadzone(gamepad1.left_trigger, 0.1);
 
@@ -75,12 +75,7 @@ public class Main extends OpMode {
             claw.open();
         }
 
-        double wristRot = deadzone(-gamepad2.left_stick_y, 0.1);
-        if (wristRot > 0) {
-            claw.up();
-        } else if (wristRot < 0) {
-            claw.down();
-        }
+        claw.tilt(deadzone(-gamepad2.left_stick_y, 0.1));
     }
 
     /**
