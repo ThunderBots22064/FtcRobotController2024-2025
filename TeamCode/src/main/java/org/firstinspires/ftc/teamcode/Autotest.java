@@ -5,149 +5,90 @@ import com.qualcomm.robotcore.eventloop.opmode.*;
 
 import org.firstinspires.ftc.teamcode.Subsystems.*;
 import org.firstinspires.ftc.teamcode.Utils.*;
+import org.opencv.core.Mat;
+
 @Autonomous(name = "Autotest")
 public class Autotest extends LinearOpMode{
-    private DcMotor FR;
-    private DcMotor FL;
-    private DcMotor BR;
-    private DcMotor BL;
-    private DcMotor slide;
-    private DcMotor hook;
-    private Servo claw;
-    private Servo wrist;
-    final int ceil = 300;
-    final int floor = 0;
+    private Claw claw;
+    private Drivetrain drivetrain;
+    private Hook hook;
+    private ViperSlide slide;
 
-    public final static DcMotorSimple.Direction FL_DIR = DcMotorSimple.Direction.FORWARD;
-    public final static DcMotorSimple.Direction FR_DIR = DcMotorSimple.Direction.FORWARD;
-    public final static DcMotorSimple.Direction BL_DIR = DcMotorSimple.Direction.REVERSE;
-    public final static DcMotorSimple.Direction BR_DIR = DcMotorSimple.Direction.FORWARD;
 
     public void config(HardwareMap hardwareMap){
-        FR = hardwareMap.get(DcMotor.class, "frontRight");
-        FL = hardwareMap.get(DcMotor.class, "frontLeft");
-        BR = hardwareMap.get(DcMotor.class, "backRight");
-        BL = hardwareMap.get(DcMotor.class, "backLeft");
-        slide = hardwareMap.get(DcMotor.class, "slide");
-        hook = hardwareMap.get(DcMotor.class, "hook");
-        claw = hardwareMap.get(Servo.class, "claw");
-        wrist = hardwareMap.get(Servo.class, "wrist");
+        claw = new Claw(hardwareMap);
+        drivetrain = new Drivetrain(hardwareMap, 0.25);
+        hook = new Hook(hardwareMap);
+        slide = new ViperSlide(hardwareMap);
     }
 
-    //Stop function to stop power to wheels for inputted time (in seconds)
-    private void stop(int time__in_seconds_) {
-        BL.setPower(0);
-        BR.setPower(0);
-        FL.setPower(0);
-        FR.setPower(0);
-        sleep(time__in_seconds_ * 1000);
-    }
-    // Forward function to move wheels forward for inputted time and with inputted power
-    private void forward(double time__in_seconds_, double power) {
-        BL.setPower(power);
-        BR.setPower(power);
-        FL.setPower(power);
-        FR.setPower(power);
-        sleep((long) (time__in_seconds_ * 1000));
-    }
-    // Backward function to move wheels backward for inputted time and with inputted power
-    private void backward(double time__in_seconds_, double power){
-        BL.setPower(-power);
-        BR.setPower(-power);
-        FR.setPower(-power);
-        FL.setPower(-power);
-        sleep((long) (time__in_seconds_ * 1000));
-    }
-    // Turn left function to turn left for inputted time and with inputted power
-    private void turn_Left(double time__in_seconds_, double power) {
-        BL.setPower(-power);
-        BR.setPower(power);
-        FR.setPower(power);
-        FL.setPower(-power);
-        sleep((long) (time__in_seconds_ * 1000));
-    }
-    // Turn right function to turn right for inputted time and with inputted power
-    private void turn_Right(double time__in_seconds_, double power){
-        BL.setPower(power);
-        BR.setPower(-power);
-        FR.setPower(-power);
-        FL.setPower(power);
-        sleep((long) (time__in_seconds_ * 1000));
-    }
-
-    private void strafe_Right(double time__in_seconds_, double power){
-        BL.setPower(-power);
-        BR.setPower(power);
-        FR.setPower(-power);
-        FL.setPower(power);
-        sleep((long) (time__in_seconds_ * 1000));
-    }
-
-    private void strafe_Left(double time__in_seconds_, double power){
-        BL.setPower(power);
-        BR.setPower(-power);
-        FR.setPower(power);
-        FL.setPower(-power);
-        sleep((long) (time__in_seconds_ * 1000));
-    }
-
-    private void slide_Up(double time__in_seconds_, double power){
-       while (slide.getCurrentPosition() < ceil || slide.getCurrentPosition() > floor) {
-           slide.setPower(power);
-           sleep((long) (time__in_seconds_ * 1000));
-       }
-            slide.setPower(0);
-            sleep( 2000);
+    private void sleep_sec(double seconds) {
+        sleep((long) (seconds * 1000));
     }
 
     public void runOpMode(){
         config(hardwareMap);
-        FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        FL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        FR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        FL.setDirection(FL_DIR);
-        FR.setDirection(FR_DIR);
-        BL.setDirection(BL_DIR);
-        BR.setDirection(BR_DIR);
-
-        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slide.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //red observation zone side (simple park)
-        strafe_Right(1,0.25);
-        stop(5);
+        drivetrain.drive(0, 1, 0);
+        sleep_sec(1);
+        drivetrain.stop();
+        sleep_sec(5);
 
         //red net zone side (complex w/ pre-load)
-        forward(0.15,0.25);
-        strafe_Left(1.5,0.25);
-        turn_Left(0.25, 0.25);
-        slide_Up(1,0.25);
-        wrist.setPosition(0);
-        wrist.setPosition(-0.15);
-        claw.setPosition(0.7);
-        backward(0.15, 0.25);
-        turn_Right(0.25, 0.25);
-        forward(1.25,0.25);
-        strafe_Right(1.5,0.25);
-        stop(2);
+        drivetrain.drive((Math.PI / 2), 1.0, 0);
+        sleep_sec(0.15);
+
+        drivetrain.drive((Math.PI), 1, 0);
+        sleep_sec(1.5);
+
+        drivetrain.drive(0, 0, -1);
+        sleep_sec(0.25);
+
+        slide.setPosition(1);
+
+        claw.setWrist(0);
+        claw.setWrist(-0.15);
+        claw.setWrist(0.7);
+
+        drivetrain.drive((Math.PI * 3.0/2), 1, 0);
+        sleep_sec(0.15);
+
+        drivetrain.drive(0, 0, 1);
+        sleep_sec(0.25);
+
+        drivetrain.drive((Math.PI / 2), 1, 0);
+        sleep_sec(1.25);
+
+        drivetrain.drive(0, 1, 0);
+        sleep_sec(1.5);
+
+        drivetrain.stop();
+        sleep_sec(2);
 
         //red net zone side (simple park)
-        strafe_Left(0.5, 0.25);
-        forward(1.5,0.25);
-        strafe_Right(0.5, 0.25);
-        slide_Up(0.5,0.25);
-        stop(2);
+        drivetrain.drive((Math.PI), 1, 0);
+        sleep_sec(0.5);
 
-        /*forward(1, 0.25);
-        turn_Right(0.5, 0.25);
-        stop(2);
+        drivetrain.drive((Math.PI / 2), 1, 0);
+        sleep_sec(1.5);
+
+        drivetrain.drive(0, 1, 0);
+        sleep_sec(0.5);
+
+        slide.setPosition(1);
+        drivetrain.stop();
+        sleep_sec(2);
+
+        /*
+        drivetrain.drive((Math.PI / 2), 1, 0);
+        sleep_sec(1);
+
+        drive.drive(0, 1, 0);
+        sleep_sec(0.5);
+
+        drivetrain.stop();
+        sleep_sec(2);
          */
     }
 
