@@ -61,7 +61,12 @@ public class Main extends OpMode {
 
 
         /* --- GAMEPAD 2 --- */
-        slide.run(deadzone(-gamepad2.right_stick_y, 0.1));
+        double slideInput = deadzone(-gamepad2.right_stick_y, 0.1);
+        if (slideInput > 0) {
+            slide.up();
+        } else if (slideInput < 0) {
+            slide.down();
+        }
 
         if (gamepad2.y) {
             hook.up();
