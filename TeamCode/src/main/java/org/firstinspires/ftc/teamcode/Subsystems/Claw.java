@@ -1,17 +1,16 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.*;
 
-// IMPLEMENT WRIST!!!!
 public class Claw {
     final private Servo claw;
-    final private CRServo wrist;
+    final private Servo wrist;
 
     public Claw (HardwareMap hardwareMap) {
         claw = hardwareMap.get(Servo.class, "claw");
-        wrist = hardwareMap.get(CRServo.class, "wrist");
+        wrist = hardwareMap.get(Servo.class, "wrist");
 
         claw.setDirection(Servo.Direction.FORWARD);
-        wrist.setDirection(DcMotorSimple.Direction.FORWARD);
+        wrist.setDirection(Servo.Direction.FORWARD);
     }
 
     public void open() {
@@ -22,12 +21,16 @@ public class Claw {
         claw.setPosition(0); //temp position
     }
 
-    public void tilt(double speed) {
-        if (speed > 1.0) {
-            speed = 1.0;
-        } else if (speed < -1.0) {
-            speed = -1.0;
+    /**
+     * Sets the position of the wrist as a value on its range
+     * @param position a value between 0 and 1.00
+     */
+    public void setWrist(double position) {
+        if (position > 1.00) {
+            position = 1.00;
+        } else if (position < 0) {
+            position = 0;
         }
-        wrist.setPower(speed);
+        wrist.setPosition(position);
     }
 }
