@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.*;
-import com.qualcomm.robotcore.eventloop.opmode.*;
-
-import org.firstinspires.ftc.teamcode.Subsystems.*;
-import org.firstinspires.ftc.teamcode.Utils.*;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name = "Autotest")
 public class Autotest extends LinearOpMode{
     private DcMotor FR;

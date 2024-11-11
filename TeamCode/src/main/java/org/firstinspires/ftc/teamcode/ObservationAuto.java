@@ -11,8 +11,8 @@ public class ObservationAuto extends LinearOpMode{
     private DcMotor BL;
     private DcMotor slide;
     private DcMotor hook;
-    private Servo claw;
-    private Servo wrist;
+    //private Servo claw;
+    //private Servo wrist;
     final int ceil = 300;
     final int floor = 0;
 
@@ -28,8 +28,8 @@ public class ObservationAuto extends LinearOpMode{
         BL = hardwareMap.get(DcMotor.class, "backLeft");
         slide = hardwareMap.get(DcMotor.class, "slide");
         hook = hardwareMap.get(DcMotor.class, "hook");
-        claw = hardwareMap.get(Servo.class, "claw");
-        wrist = hardwareMap.get(Servo.class, "wrist");
+        //claw = hardwareMap.get(Servo.class, "claw");
+        //wrist = hardwareMap.get(Servo.class, "wrist");
     }
 
     //Stop function to stop power to wheels for inputted time (in seconds)
@@ -119,11 +119,15 @@ public class ObservationAuto extends LinearOpMode{
         slide.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
-        //red observation zone side (simple park)
-        forward(0.1, 0.75); // original time = 0.15s
-        turn_Right(0.4, 0.75);
-        forward(0.5,0.75);
-        stop(2);
+        waitForStart();
+
+        while(opModeIsActive()) {
+            //red observation zone side (simple park)
+            forward(0.1, 0.75); // original time = 0.15s
+            turn_Right(0.4, 0.75);
+            forward(0.5, 0.75);
+            stop(2);
+        }
     }
 
 }

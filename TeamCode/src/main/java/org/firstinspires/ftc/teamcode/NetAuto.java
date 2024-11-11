@@ -11,8 +11,8 @@ public class NetAuto extends LinearOpMode{
     private DcMotor BL;
     private DcMotor slide;
     private DcMotor hook;
-    private Servo claw;
-    private Servo wrist;
+    //private Servo claw;
+    //private Servo wrist;
     final int ceil = 300;
     final int floor = 0;
 
@@ -28,8 +28,8 @@ public class NetAuto extends LinearOpMode{
         BL = hardwareMap.get(DcMotor.class, "backLeft");
         slide = hardwareMap.get(DcMotor.class, "slide");
         hook = hardwareMap.get(DcMotor.class, "hook");
-        claw = hardwareMap.get(Servo.class, "claw");
-        wrist = hardwareMap.get(Servo.class, "wrist");
+        //claw = hardwareMap.get(Servo.class, "claw");
+        //wrist = hardwareMap.get(Servo.class, "wrist");
     }
 
     //Stop function to stop power to wheels for inputted time (in seconds)
@@ -90,13 +90,16 @@ public class NetAuto extends LinearOpMode{
     }
 
     private void slide_Up(double time__in_seconds_, double power){
-        while (opModeIsActive() && (slide.getCurrentPosition() < ceil && slide.getCurrentPosition() > floor)) {
+        slide.setPower(power);
+        sleep((long) (time__in_seconds_ * 1000));
+
+        /*while (opModeIsActive() && (slide.getCurrentPosition() < ceil && slide.getCurrentPosition() > floor)) {
             slide.setPower(power);
             sleep((long) (time__in_seconds_ * 1000));
 
         }
         slide.setPower(0);
-        sleep( 2000);
+        sleep( 2000);*/
     }
 
     public void runOpMode(){
@@ -118,6 +121,8 @@ public class NetAuto extends LinearOpMode{
 
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        waitForStart();
 
         /*
         //red net zone side (complex w/ pre-load)
@@ -145,7 +150,7 @@ public class NetAuto extends LinearOpMode{
          */
 
         //edited version
-        strafe_Left(0.5, 0.75);
+        /*strafe_Left(0.5, 0.75);
         forward(1.3,0.75);
         stop(1);
         strafe_Right(0.3, 0.75);
@@ -153,6 +158,14 @@ public class NetAuto extends LinearOpMode{
         turn_Right(0.4, 0.75);
         slide_Up(0.15,0.75); // too long, maybe half or third
         stop(2);
+         */
+
+        while (opModeIsActive()){//draft3
+            strafe_Left(1.3, 0.75);
+            forward(0.3, 0.75);
+            slide_Up(0.10, 0.75); // too long, maybe half or third
+            stop(2);
+        }
     }
 
 }
