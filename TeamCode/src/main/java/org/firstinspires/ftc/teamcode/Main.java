@@ -25,6 +25,8 @@ public class Main extends OpMode {
         drivetrain = new Drivetrain(hardwareMap, 0.60);
         imu = new Imu(hardwareMap);
         claw = new Claw(hardwareMap);
+        double d = claw.resest();
+        telemetry.addData("Claw position",d);
     }
 
     @Override
@@ -72,10 +74,19 @@ public class Main extends OpMode {
         if (gamepad2.right_trigger > 0.5) {
             claw.close();
         } else if (gamepad2.left_trigger > 0.5) {
-            claw.open();
+            claw.open(
+
+            );
         }
 
-        claw.tilt(deadzone(-gamepad2.left_stick_y, 0.1));
+        double wristRot = deadzone(-gamepad2.left_stick_y, 0.1);
+        if (wristRot > 0) {
+            claw.up();
+        } else if (wristRot < 0) {
+            claw.down();
+        }
+
+        //claw.tilt(deadzone(-gamepad2.left_stick_y, 0.1));
     }
 
     /**

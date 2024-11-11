@@ -23,7 +23,7 @@ public class ViperSlide {
     }
 
     public void run(double power) {
-        if (slide.getCurrentPosition() >= ceil && power > 0) {
+        /*if (slide.getCurrentPosition() >= ceil && power > 0) {
             stop();
             return;
         }
@@ -31,6 +31,7 @@ public class ViperSlide {
             stop();
             return;
         }
+         */
         slide.setPower(power);
     }
 
