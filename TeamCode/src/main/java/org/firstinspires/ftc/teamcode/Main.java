@@ -9,10 +9,10 @@ import org.firstinspires.ftc.teamcode.Utils.*;
 @TeleOp
 public class Main extends OpMode {
     ViperSlide slide;
-    Drivetrain drivetrain;
+//    Drivetrain drivetrain;
     Imu imu;
-    Hook hook;
-    Claw claw;
+//    Hook hook;
+//    Claw claw;
 
     boolean fieldOriented = false;
     OnPress orientSwitch = new OnPress();
@@ -21,10 +21,10 @@ public class Main extends OpMode {
     @Override
     public void init() {
         slide = new ViperSlide(hardwareMap);
-        hook = new Hook(hardwareMap);
-        drivetrain = new Drivetrain(hardwareMap, 0.60);
-        imu = new Imu(hardwareMap);
-        claw = new Claw(hardwareMap);
+//        hook = new Hook(hardwareMap);
+//        drivetrain = new Drivetrain(hardwareMap, 0.60);
+//        imu = new Imu(hardwareMap);
+//        claw = new Claw(hardwareMap);
     }
 
     @Override
@@ -54,14 +54,14 @@ public class Main extends OpMode {
 
         boolean slowMode = gamepad1.y;
 
-        drivetrain.drive(angle, magnitude, turn, slowMode);
+//        drivetrain.drive(angle, magnitude, turn, slowMode);
         //        telemetry.add("Slide target: ", slide.getTarget());
 
 
         /* --- GAMEPAD 2 --- */
         slide.run(deadzone(-gamepad2.right_stick_y, 0.1));
 
-        if (gamepad2.y) {
+        /*if (gamepad2.y) {
             hook.up();
         } else if (gamepad2.a) {
             hook.down();
@@ -75,7 +75,7 @@ public class Main extends OpMode {
             claw.open();
         }
 
-        claw.tilt(deadzone(-gamepad2.left_stick_y, 0.1));
+        claw.tilt(deadzone(-gamepad2.left_stick_y, 0.1));*/
     }
 
     /**
