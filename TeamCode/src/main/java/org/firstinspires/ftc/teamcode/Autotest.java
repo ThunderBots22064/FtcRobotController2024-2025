@@ -1,24 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.*;
-import com.qualcomm.robotcore.eventloop.opmode.*;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Subsystems.*;
-import org.firstinspires.ftc.teamcode.Utils.*;
-import org.opencv.core.Mat;
+import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.Subsystems.ViperSlide;
 
 @Autonomous(name = "Autotest")
 public class Autotest extends LinearOpMode{
     private Claw claw;
     private Drivetrain drivetrain;
-    private Hook hook;
     private ViperSlide slide;
 
 
     public void config(HardwareMap hardwareMap){
         claw = new Claw(hardwareMap);
         drivetrain = new Drivetrain(hardwareMap, 0.25);
-        hook = new Hook(hardwareMap);
         slide = new ViperSlide(hardwareMap);
     }
 
@@ -45,7 +44,7 @@ public class Autotest extends LinearOpMode{
         drivetrain.drive(0, 0, -1);
         sleep_sec(0.25);
 
-        slide.setPosition(1);
+//        slide.setPosition(1);
 
         claw.setWrist(0);
         claw.setWrist(-0.15);
@@ -76,7 +75,7 @@ public class Autotest extends LinearOpMode{
         drivetrain.drive(0, 1, 0);
         sleep_sec(0.5);
 
-        slide.setPosition(1);
+//        slide.setPosition(1);
         drivetrain.stop();
         sleep_sec(2);
 

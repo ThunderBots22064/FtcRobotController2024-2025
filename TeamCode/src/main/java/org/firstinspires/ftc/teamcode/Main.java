@@ -11,8 +11,7 @@ public class Main extends OpMode {
     ViperSlide slide;
     Drivetrain drivetrain;
     Imu imu;
-    Hook hook;
-    Claw claw;
+//    Claw claw;
 
     boolean fieldOriented = false;
     OnPress orientSwitch = new OnPress();
@@ -23,10 +22,10 @@ public class Main extends OpMode {
     @Override
     public void init() {
         slide = new ViperSlide(hardwareMap);
-        hook = new Hook(hardwareMap);
+//        hook = new Hook(hardwareMap);
         drivetrain = new Drivetrain(hardwareMap, 0.60);
         imu = new Imu(hardwareMap);
-        claw = new Claw(hardwareMap);
+//        claw = new Claw(hardwareMap);
     }
 
     @Override
@@ -66,34 +65,27 @@ public class Main extends OpMode {
             slide.up();
         } else if (slideInput < 0) {
             slide.down();
-        }
-
-        if (gamepad2.y) {
-            hook.up();
-        } else if (gamepad2.a) {
-            hook.down();
         } else {
-            hook.stop();
+            slide.stop();
         }
-
-        if (gamepad2.right_trigger > 0.5) {
-            claw.close();
-        } else if (gamepad2.left_trigger > 0.5) {
-            claw.open();
-        }
-
-        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
-        if (wristInput > 0) {
-            wristPosition += 0.01;
-        } else if (wristInput < 0) {
-            wristPosition -= 0.01;
-        }
-        if (wristPosition > 1.00) {
-            wristPosition = 1.00;
-        } else if (wristPosition < 0) {
-            wristPosition = 0;
-        }
-        claw.setWrist(wristPosition);
+//        if (gamepad2.right_trigger > 0.5) {
+//            claw.close();
+//        } else if (gamepad2.left_trigger > 0.5) {
+//            claw.open();
+//        }
+//
+//        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
+//        if (wristInput > 0) {
+//            wristPosition += 0.01;
+//        } else if (wristInput < 0) {
+//            wristPosition -= 0.01;
+//        }
+//        if (wristPosition > 1.00) {
+//            wristPosition = 1.00;
+//        } else if (wristPosition < 0) {
+//            wristPosition = 0;
+//        }
+//        claw.setWrist(wristPosition);
     }
 
     /**

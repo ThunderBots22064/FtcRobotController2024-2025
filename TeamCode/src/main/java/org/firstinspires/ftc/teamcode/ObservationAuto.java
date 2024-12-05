@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.eventloop.opmode.*;
 
 @Autonomous(name = "RedObservationAuto")
-public class ObservationAuto extends LinearOpMode{
+public class ObservationAuto extends LinearOpMode {
     private DcMotor FR;
     private DcMotor FL;
     private DcMotor BR;
@@ -21,7 +21,7 @@ public class ObservationAuto extends LinearOpMode{
     public final static DcMotorSimple.Direction BL_DIR = DcMotorSimple.Direction.REVERSE;
     public final static DcMotorSimple.Direction BR_DIR = DcMotorSimple.Direction.FORWARD;
 
-    public void config(HardwareMap hardwareMap){
+    public void config(HardwareMap hardwareMap) {
         FR = hardwareMap.get(DcMotor.class, "frontRight");
         FL = hardwareMap.get(DcMotor.class, "frontLeft");
         BR = hardwareMap.get(DcMotor.class, "backRight");
@@ -40,6 +40,7 @@ public class ObservationAuto extends LinearOpMode{
         FR.setPower(0);
         sleep(time__in_seconds_ * 1000);
     }
+
     // Forward function to move wheels forward for inputted time and with inputted power
     private void forward(double time__in_seconds_, double power) {
         BL.setPower(power);
@@ -48,14 +49,16 @@ public class ObservationAuto extends LinearOpMode{
         FR.setPower(power);
         sleep((long) (time__in_seconds_ * 1000));
     }
+
     // Backward function to move wheels backward for inputted time and with inputted power
-    private void backward(double time__in_seconds_, double power){
+    private void backward(double time__in_seconds_, double power) {
         BL.setPower(-power);
         BR.setPower(-power);
         FR.setPower(-power);
         FL.setPower(-power);
         sleep((long) (time__in_seconds_ * 1000));
     }
+
     // Turn left function to turn left for inputted time and with inputted power
     private void turn_Left(double time__in_seconds_, double power) {
         BL.setPower(-power);
@@ -64,8 +67,9 @@ public class ObservationAuto extends LinearOpMode{
         FL.setPower(-power);
         sleep((long) (time__in_seconds_ * 1000));
     }
+
     // Turn right function to turn right for inputted time and with inputted power
-    private void turn_Right(double time__in_seconds_, double power){
+    private void turn_Right(double time__in_seconds_, double power) {
         BL.setPower(power);
         BR.setPower(-power);
         FR.setPower(-power);
@@ -73,7 +77,7 @@ public class ObservationAuto extends LinearOpMode{
         sleep((long) (time__in_seconds_ * 1000));
     }
 
-    private void strafe_Right(double time__in_seconds_, double power){
+    private void strafe_Right(double time__in_seconds_, double power) {
         BL.setPower(-power);
         BR.setPower(power);
         FR.setPower(-power);
@@ -81,7 +85,7 @@ public class ObservationAuto extends LinearOpMode{
         sleep((long) (time__in_seconds_ * 1000));
     }
 
-    private void strafe_Left(double time__in_seconds_, double power){
+    private void strafe_Left(double time__in_seconds_, double power) {
         BL.setPower(power);
         BR.setPower(-power);
         FR.setPower(power);
@@ -89,16 +93,16 @@ public class ObservationAuto extends LinearOpMode{
         sleep((long) (time__in_seconds_ * 1000));
     }
 
-    private void slide_Up(double time__in_seconds_, double power){
+    private void slide_Up(double time__in_seconds_, double power) {
         while (slide.getCurrentPosition() < ceil || slide.getCurrentPosition() > floor) {
             slide.setPower(power);
             sleep((long) (time__in_seconds_ * 1000));
         }
         slide.setPower(0);
-        sleep( 2000);
+        sleep(2000);
     }
 
-    public void runOpMode(){
+    public void runOpMode() {
         config(hardwareMap);
         FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -122,8 +126,7 @@ public class ObservationAuto extends LinearOpMode{
         //red observation zone side (simple park)
         forward(0.1, 0.75); // original time = 0.15s
         turn_Right(0.4, 0.75);
-        forward(0.5,0.75);
+        forward(0.5, 0.75);
         stop(2);
     }
-
 }
