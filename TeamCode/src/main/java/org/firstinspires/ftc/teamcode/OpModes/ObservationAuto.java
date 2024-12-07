@@ -1,10 +1,8 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.OpModes;
 
-import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.eventloop.opmode.*;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.ViperSlide;
 
 @Autonomous(name = "RedObservationAuto")
