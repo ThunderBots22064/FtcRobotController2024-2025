@@ -28,6 +28,11 @@ public class Main extends OpMode {
     }
 
     @Override
+    public void init_loop() {
+        slide.home();
+    }
+
+    @Override
     public void loop() {
         // Toggle field oriented modes only when both bumpers are pressed (Without repeatedly toggling)
         if (orientSwitch.pressed(gamepad1.left_bumper && gamepad1.right_bumper)) {
