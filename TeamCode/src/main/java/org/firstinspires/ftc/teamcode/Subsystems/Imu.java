@@ -10,8 +10,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 // It assists in getting the robots orientation
 public class Imu {
     final private IMU imu;
+    final private boolean safeMode;
+
+    private final int cooldownTicks = 5;
+
+    private int ticks = cooldownTicks;
+    private double headingStore;
 
     public Imu(HardwareMap hardwareMap) {
+        this(hardwareMap, false);
+    }
+
+    public Imu(HardwareMap hardwareMap, boolean safeMode) {
         imu = hardwareMap.get(IMU.class, "imu");
 
         imu.initialize(
@@ -19,6 +29,8 @@ public class Imu {
                         RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                         RevHubOrientationOnRobot.UsbFacingDirection.UP))
         );
+
+        this.safeMode = safeMode;
     }
 
     /**
@@ -26,7 +38,17 @@ public class Imu {
      * @return The heading between Pi and -Pi radians (Right hand rule applies, 0 rad. is directly forward)
      */
     public double getRawHeading() {
-        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        if (!safeMode) {
+            return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        }
+
+        if (ticks < cooldownTicks) {
+            ticks++;
+        } else {
+            ticks = 0;
+            headingStore = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        }
+        return headingStore;
     }
 
     /**
