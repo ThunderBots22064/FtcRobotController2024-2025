@@ -41,6 +41,7 @@ public class Autotest extends LinearOpMode{
 
         drivetrain.drive(0, 0, -1);
         sleep_sec(0.25);
+        drivetrain.stop();
 
 //        slide.setPosition(1);
 
