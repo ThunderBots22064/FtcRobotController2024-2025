@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.*;
 
-public class Claw {
+public class Intake {
     final private Servo claw;
     final private Servo wrist;
 
-    public Claw (HardwareMap hardwareMap) {
+    public Intake (HardwareMap hardwareMap) {
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 

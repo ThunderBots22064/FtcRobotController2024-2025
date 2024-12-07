@@ -22,10 +22,9 @@ public class Main extends OpMode {
     @Override
     public void init() {
         slide = new ViperSlide(hardwareMap);
-//        hook = new Hook(hardwareMap);
         drivetrain = new Drivetrain(hardwareMap, 0.60);
         imu = new Imu(hardwareMap);
-//        claw = new Claw(hardwareMap);
+//        intake = new Intake(hardwareMap);
     }
 
     @Override
@@ -74,9 +73,9 @@ public class Main extends OpMode {
             slide.stop();
         }
 //        if (gamepad2.right_trigger > 0.5) {
-//            claw.close();
+//            intake.close();
 //        } else if (gamepad2.left_trigger > 0.5) {
-//            claw.open();
+//            intake.open();
 //        }
 //
 //        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
