@@ -73,9 +73,9 @@ public class Main extends OpMode {
             slide.stop();
         }
 //        if (gamepad2.right_trigger > 0.5) {
-//            intake.close();
+//            intake.run(true);
 //        } else if (gamepad2.left_trigger > 0.5) {
-//            intake.open();
+//            intake.run(false);
 //        }
 //
 //        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
@@ -89,7 +89,7 @@ public class Main extends OpMode {
 //        } else if (wristPosition < 0) {
 //            wristPosition = 0;
 //        }
-//        claw.setWrist(wristPosition);
+//        intake.setWrist(wristPosition);
         telemetry.update();
     }
 

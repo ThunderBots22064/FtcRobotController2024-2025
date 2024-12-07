@@ -2,23 +2,27 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.*;
 
 public class Intake {
-    final private Servo claw;
+    final private CRServo intake;
     final private Servo wrist;
 
     public Intake (HardwareMap hardwareMap) {
-        claw = hardwareMap.get(Servo.class, "claw");
+        intake = hardwareMap.get(CRServo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
-        claw.setDirection(Servo.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.FORWARD);
         wrist.setDirection(Servo.Direction.FORWARD);
     }
 
-    public void open() {
-       claw.setPosition(1.0); //temp position
-    }
-
-    public void close() {
-        claw.setPosition(0); //temp position
+    /**
+     * Runs the intake system
+     * @param in if true intakes, otherwise outtakes
+     */
+    public void run(boolean in) {
+        if (in) {
+            intake.setPower(1.0);
+        } else {
+            intake.setPower(-1.0);
+        }
     }
 
     /**
