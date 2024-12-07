@@ -11,20 +11,25 @@ public class Main extends OpMode {
     ViperSlide slide;
     Drivetrain drivetrain;
     Imu imu;
-    Hook hook;
-    Claw claw;
+    Intake intake;
 
     boolean fieldOriented = false;
     OnPress orientSwitch = new OnPress();
     OnPress orientReset = new OnPress();
 
+    double wristPosition = 0;
+
     @Override
     public void init() {
         slide = new ViperSlide(hardwareMap);
-        hook = new Hook(hardwareMap);
         drivetrain = new Drivetrain(hardwareMap, 0.60);
-        imu = new Imu(hardwareMap);
-        claw = new Claw(hardwareMap);
+        imu = new Imu(hardwareMap, true);
+        intake = new Intake(hardwareMap);
+    }
+
+    @Override
+    public void init_loop() {
+        slide.home();
     }
 
     @Override
@@ -47,10 +52,15 @@ public class Main extends OpMode {
         double angle = Math.atan2(yComponent, xComponent);
         double turn = deadzone(gamepad1.right_trigger, 0.1) - deadzone(gamepad1.left_trigger, 0.1);
 
+        telemetry.addData("Raw Angle (DEG)", Math.toDegrees(angle));
+
         // Use the IMU to calculate the desired angle in field-oriented mode
         if (fieldOriented) {
             angle -= imu.getRawHeading();
         }
+
+        telemetry.addData("Raw Heading (DEG)", Math.toDegrees(imu.getRawHeading()));
+        telemetry.addData("Adjusted Angle (DEG)", Math.toDegrees(angle));
 
         boolean slowMode = gamepad1.y;
 
@@ -59,23 +69,35 @@ public class Main extends OpMode {
 
 
         /* --- GAMEPAD 2 --- */
-        slide.run(deadzone(-gamepad2.right_stick_y, 0.1));
-
-        if (gamepad2.y) {
-            hook.up();
-        } else if (gamepad2.a) {
-            hook.down();
+        double slideInput = deadzone(-gamepad2.right_stick_y, 0.1);
+        if (slideInput > 0) {
+            slide.up();
+        } else if (slideInput < 0) {
+            slide.down();
         } else {
-            hook.stop();
+            slide.stop();
         }
 
         if (gamepad2.right_trigger > 0.5) {
-            claw.close();
+            intake.run(true);
         } else if (gamepad2.left_trigger > 0.5) {
-            claw.open();
+            intake.run(false);
         }
 
-        claw.tilt(deadzone(-gamepad2.left_stick_y, 0.1));
+        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
+        if (wristInput > 0) {
+            wristPosition += 0.01;
+        } else if (wristInput < 0) {
+            wristPosition -= 0.01;
+        }
+        if (wristPosition > 1.00) {
+            wristPosition = 1.00;
+        } else if (wristPosition < 0) {
+            wristPosition = 0;
+        }
+        intake.setWrist(wristPosition);
+
+        telemetry.update();
     }
 
     /**
