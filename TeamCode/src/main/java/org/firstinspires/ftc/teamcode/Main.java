@@ -23,7 +23,7 @@ public class Main extends OpMode {
     public void init() {
         slide = new ViperSlide(hardwareMap);
         drivetrain = new Drivetrain(hardwareMap, 0.60);
-        imu = new Imu(hardwareMap);
+        imu = new Imu(hardwareMap, true);
 //        intake = new Intake(hardwareMap);
     }
 
