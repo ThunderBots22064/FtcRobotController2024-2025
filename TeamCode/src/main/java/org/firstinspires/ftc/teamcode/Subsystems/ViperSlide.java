@@ -30,7 +30,9 @@ public class ViperSlide {
         if (floorLimit.isPressed()) {
             slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
             stop();
+
             homed = true;
         }
         if (!homed) {
