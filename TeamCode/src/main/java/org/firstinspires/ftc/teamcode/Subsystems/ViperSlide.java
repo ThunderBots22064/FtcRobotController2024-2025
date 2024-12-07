@@ -14,6 +14,7 @@ public class ViperSlide {
     final int floor = 0;
 
     private double speed = 0.20;
+    private boolean homed = false;
 
     public ViperSlide(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
@@ -22,12 +23,24 @@ public class ViperSlide {
         floorLimit = hardwareMap.get(TouchSensor.class, "floorLimit");
     }
 
+    public boolean home() {
+        if (floorLimit.isPressed()) {
+            slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            stop();
+            homed = true;
+        }
+        if (!homed) {
+            slide.setPower(-0.2);
+        }
+    }
+
     public void up() {
         slide.setPower(speed);
     }
 
     public void down() {
-        if (floorLimit.isPressed()) {
+        if (slide.getCurrentPosition() < 15) {
             stop();
             return;
         }
