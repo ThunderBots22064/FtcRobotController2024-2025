@@ -48,10 +48,15 @@ public class Main extends OpMode {
         double angle = Math.atan2(yComponent, xComponent);
         double turn = deadzone(gamepad1.right_trigger, 0.1) - deadzone(gamepad1.left_trigger, 0.1);
 
+        telemetry.addData("Raw Angle (DEG)", Math.toDegrees(angle));
+
         // Use the IMU to calculate the desired angle in field-oriented mode
         if (fieldOriented) {
             angle -= imu.getRawHeading();
         }
+
+        telemetry.addData("Raw Heading (DEG)", Math.toDegrees(imu.getRawHeading()));
+        telemetry.addData("Adjusted Angle (DEG)", Math.toDegrees(angle));
 
         boolean slowMode = gamepad1.y;
 
@@ -86,6 +91,7 @@ public class Main extends OpMode {
 //            wristPosition = 0;
 //        }
 //        claw.setWrist(wristPosition);
+        telemetry.update();
     }
 
     /**
