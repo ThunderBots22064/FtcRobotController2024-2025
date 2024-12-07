@@ -11,7 +11,7 @@ public class Main extends OpMode {
     ViperSlide slide;
     Drivetrain drivetrain;
     Imu imu;
-//    Claw claw;
+    Intake intake;
 
     boolean fieldOriented = false;
     OnPress orientSwitch = new OnPress();
@@ -24,7 +24,7 @@ public class Main extends OpMode {
         slide = new ViperSlide(hardwareMap);
         drivetrain = new Drivetrain(hardwareMap, 0.60);
         imu = new Imu(hardwareMap, true);
-//        intake = new Intake(hardwareMap);
+        intake = new Intake(hardwareMap);
     }
 
     @Override
@@ -72,24 +72,26 @@ public class Main extends OpMode {
         } else {
             slide.stop();
         }
-//        if (gamepad2.right_trigger > 0.5) {
-//            intake.run(true);
-//        } else if (gamepad2.left_trigger > 0.5) {
-//            intake.run(false);
-//        }
-//
-//        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
-//        if (wristInput > 0) {
-//            wristPosition += 0.01;
-//        } else if (wristInput < 0) {
-//            wristPosition -= 0.01;
-//        }
-//        if (wristPosition > 1.00) {
-//            wristPosition = 1.00;
-//        } else if (wristPosition < 0) {
-//            wristPosition = 0;
-//        }
-//        intake.setWrist(wristPosition);
+
+        if (gamepad2.right_trigger > 0.5) {
+            intake.run(true);
+        } else if (gamepad2.left_trigger > 0.5) {
+            intake.run(false);
+        }
+
+        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
+        if (wristInput > 0) {
+            wristPosition += 0.01;
+        } else if (wristInput < 0) {
+            wristPosition -= 0.01;
+        }
+        if (wristPosition > 1.00) {
+            wristPosition = 1.00;
+        } else if (wristPosition < 0) {
+            wristPosition = 0;
+        }
+        intake.setWrist(wristPosition);
+
         telemetry.update();
     }
 
