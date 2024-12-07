@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class ViperSlide {
-    final private DcMotor slide;
-    final private TouchSensor floorLimit;
+    private final DcMotor slide;
+    private final TouchSensor floorLimit;
 
     // Define the floor and ceiling of ViperSlide movement
-    final int ceil = 300;
-    final int floor = 0;
+    private final int ceil = 300;
+    private final int floor = 0;
 
-    private double speed = 0.20;
+    private final double speed = 0.20;
     private boolean homed = false;
 
     public ViperSlide(HardwareMap hardwareMap) {
