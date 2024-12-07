@@ -18,8 +18,11 @@ public class ViperSlide {
 
     public ViperSlide(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
+
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide.setDirection(DcMotorSimple.Direction.REVERSE);
+        slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         floorLimit = hardwareMap.get(TouchSensor.class, "floorLimit");
     }
 
