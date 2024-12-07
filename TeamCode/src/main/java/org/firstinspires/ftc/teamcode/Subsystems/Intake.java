@@ -5,6 +5,10 @@ public class Intake {
     final private CRServo intake;
     final private Servo wrist;
 
+    /**
+     * Creates an Intake
+     * @param hardwareMap the hardware mapping object
+     */
     public Intake (HardwareMap hardwareMap) {
         intake = hardwareMap.get(CRServo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
