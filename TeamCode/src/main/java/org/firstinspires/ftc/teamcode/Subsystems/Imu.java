@@ -17,10 +17,19 @@ public class Imu {
     private int ticks = cooldownTicks;
     private double headingStore;
 
+    /**
+     * Creates an IMU
+     * @param hardwareMap the hardware mapping object
+     */
     public Imu(HardwareMap hardwareMap) {
         this(hardwareMap, false);
     }
 
+    /**
+     * Creates an IMU
+     * @param hardwareMap the hardware mapping object
+     * @param safeMode when enabled slows down the number of requests sent to the IMU
+     */
     public Imu(HardwareMap hardwareMap, boolean safeMode) {
         imu = hardwareMap.get(IMU.class, "imu");
 
