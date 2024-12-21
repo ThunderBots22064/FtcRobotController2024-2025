@@ -31,6 +31,7 @@ public class Drivetrain {
         for (int i = 0; i < motors.length; i++) {
             motors[i] = hardwareMap.get(DcMotor.class, motorMaps[i]);
             motors[i].setDirection(motorDirs[i]);
+            motors[i].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
         this.speed = speed;

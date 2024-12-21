@@ -82,6 +82,8 @@ public class Main extends OpMode {
             intake.run(true);
         } else if (gamepad2.left_trigger > 0.5) {
             intake.run(false);
+        } else {
+            intake.stop();
         }
 
         double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);

@@ -30,6 +30,14 @@ public class Intake {
     }
 
     /**
+     * Stops the intake system
+     */
+    public void stop() {
+        intake.setPower(0.0);
+    }
+
+
+    /**
      * Sets the position of the wrist as a value on its range
      * @param position a value between 0 and 1.00
      */
