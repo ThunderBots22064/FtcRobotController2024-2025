@@ -5,6 +5,10 @@ import java.util.function.Supplier;
 
 public class TickHandler {
     private final double maxVector;
+
+//    Sadly generics didn't work, hopefully a way can be explored where the Supplier and Consumer
+//    function based on a generic i.e. int or double, the only problem is getting the calculations
+//    at the end involving multiplication to work.
     private final Consumer<Double> output;
     private final Supplier<Double> position;
 
