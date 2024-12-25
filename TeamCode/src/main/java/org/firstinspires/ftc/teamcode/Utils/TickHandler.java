@@ -17,4 +17,8 @@ public class TickHandler {
         this.maxVector = maxVector;
         this.output = output;
     }
+
+    public void handle(double input) {
+
+    }
 }
