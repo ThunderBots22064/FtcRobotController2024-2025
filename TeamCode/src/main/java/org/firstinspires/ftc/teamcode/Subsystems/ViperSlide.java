@@ -64,6 +64,13 @@ public class ViperSlide {
         slide.setTargetPosition(encoderVal);
     }
 
+    /**
+     * Gets the position of the slide
+     * @return the position of the slide in ticks
+     */
+    public int getPosition() {
+        return slide.getCurrentPosition();
+    }
 
     /**
      * Stops the ViperSlide
