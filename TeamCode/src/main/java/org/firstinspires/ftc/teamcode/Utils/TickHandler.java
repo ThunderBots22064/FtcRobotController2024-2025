@@ -23,7 +23,15 @@ public class TickHandler {
         this.position = position;
     }
 
+    /**
+     * Handles an input to generate the proper continuous output
+     * @param input A value between -1.0 and 1.0 specifying the total magnitude (percentage) of the
+     *              maxVector amount to use when targeting
+     */
     public void handle(double input) {
+        double vector = maxVector * maxVector;
+        double target = position.get() + vector;
 
+        output.accept(target);
     }
 }
