@@ -13,7 +13,7 @@ public class ViperSlide {
     private final int ceil = 300;
     private final int floor = 0;
 
-    private final double speed = 0.20;
+    private final double speed = 0.35;
     private boolean homed = false;
 
     /**
@@ -25,6 +25,8 @@ public class ViperSlide {
 
         slide.setTargetPosition(0);
         slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide.setPower(speed);
+
         slide.setDirection(DcMotorSimple.Direction.REVERSE);
         slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
