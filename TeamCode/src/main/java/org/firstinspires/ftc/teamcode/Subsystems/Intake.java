@@ -49,4 +49,12 @@ public class Intake {
         }
         wrist.setPosition(position);
     }
+
+    /**
+     * A getter for the wrist of the intake
+     * @return the position of the wrist on [0.0, 1.0]
+     */
+    public double getWrist() {
+        return wrist.getPosition();
+    }
 }
