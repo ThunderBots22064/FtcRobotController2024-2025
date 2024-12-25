@@ -17,7 +17,7 @@ public class Main extends OpMode {
     OnPress orientSwitch = new OnPress();
     OnPress orientReset = new OnPress();
 
-    double wristPosition = 0;
+    TickHandler wristHandler = new TickHandler(0.2, intake::setWrist, intake::getWrist);
 
     @Override
     public void init() {
@@ -87,17 +87,7 @@ public class Main extends OpMode {
         }
 
         double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
-        if (wristInput > 0) {
-            wristPosition += 0.01;
-        } else if (wristInput < 0) {
-            wristPosition -= 0.01;
-        }
-        if (wristPosition > 1.00) {
-            wristPosition = 1.00;
-        } else if (wristPosition < 0) {
-            wristPosition = 0;
-        }
-        intake.setWrist(wristPosition);
+        wristHandler.handle(wristInput);
 
         telemetry.update();
     }
