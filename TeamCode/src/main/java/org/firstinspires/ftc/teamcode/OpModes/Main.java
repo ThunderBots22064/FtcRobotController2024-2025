@@ -18,6 +18,8 @@ public class Main extends OpMode {
     OnPress orientReset = new OnPress();
 
     TickHandler wristHandler = new TickHandler(0.2, intake::setWrist, intake::getWrist);
+    TickHandler slideHandler = new TickHandler(50, slide::setPosition,
+            () -> { return (double) slide.getPosition(); });
 
     @Override
     public void init() {
@@ -70,13 +72,7 @@ public class Main extends OpMode {
 
         /* --- GAMEPAD 2 --- */
         double slideInput = deadzone(-gamepad2.right_stick_y, 0.1);
-        if (slideInput > 0) {
-            slide.up();
-        } else if (slideInput < 0) {
-            slide.down();
-        } else {
-            slide.stop();
-        }
+        slideHandler.handle(slideInput);
 
         if (gamepad2.right_trigger > 0.5) {
             intake.run(true);
