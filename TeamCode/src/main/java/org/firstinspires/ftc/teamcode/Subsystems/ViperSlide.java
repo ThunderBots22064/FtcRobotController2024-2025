@@ -13,7 +13,7 @@ public class ViperSlide {
     private final int ceil = 300;
     private final int floor = 0;
 
-    private final double speed = 0.20;
+    private final double speed = 0.35;
     private boolean homed = false;
 
     /**
@@ -23,7 +23,10 @@ public class ViperSlide {
     public ViperSlide(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
 
-        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide.setTargetPosition(0);
+        slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide.setPower(speed);
+
         slide.setDirection(DcMotorSimple.Direction.REVERSE);
         slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -48,28 +51,10 @@ public class ViperSlide {
     }
 
     /**
-     * Moves the ViperSlide up at its designated speed
-     */
-    public void up() {
-        slide.setPower(speed);
-    }
-
-    /**
-     * Moves the ViperSlide down at its designated speed
-     */
-    public void down() {
-        if (slide.getCurrentPosition() < 15) {
-            stop();
-            return;
-        }
-        slide.setPower(-speed);
-    }
-
-    /**
      * Sets the position of the ViperSlide as a FRACTION of the total range
      * @param position a value representing the percentage of the total range to go to 0 is the floor while 1 is the ceiling
      */
-  /*  public void setPosition(double position) {
+    public void setPosition(double position) {
         if (position > 1.00) {
             position = 1.00;
         } else if (position < 0) {
@@ -78,7 +63,14 @@ public class ViperSlide {
         int encoderVal = (int) ((ceil - floor) * position) + floor;
         slide.setTargetPosition(encoderVal);
     }
-*/
+
+    /**
+     * Gets the position of the slide
+     * @return the position of the slide in ticks
+     */
+    public int getPosition() {
+        return slide.getCurrentPosition();
+    }
 
     /**
      * Stops the ViperSlide
