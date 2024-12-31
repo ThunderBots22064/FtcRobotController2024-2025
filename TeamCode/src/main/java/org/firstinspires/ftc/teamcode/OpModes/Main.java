@@ -17,9 +17,8 @@ public class Main extends OpMode {
     OnPress orientSwitch = new OnPress();
     OnPress orientReset = new OnPress();
 
-    TickHandler wristHandler = new TickHandler(0.2, intake::setWrist, intake::getWrist);
-    TickHandler slideHandler = new TickHandler(50, slide::setPosition,
-            () -> { return (double) slide.getPosition(); });
+    TickHandler wristHandler;
+    TickHandler slideHandler;
 
     @Override
     public void init() {
@@ -27,6 +26,10 @@ public class Main extends OpMode {
         drivetrain = new Drivetrain(hardwareMap, 0.60);
         imu = new Imu(hardwareMap, true);
         intake = new Intake(hardwareMap);
+
+        wristHandler = new TickHandler(0.2, intake::setWrist, intake::getWrist);
+        slideHandler = new TickHandler(50, slide::setPosition,
+                () -> { return (double) slide.getPosition(); });
     }
 
     @Override
