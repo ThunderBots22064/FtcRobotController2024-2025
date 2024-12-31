@@ -34,7 +34,8 @@ public class Main extends OpMode {
 
     @Override
     public void init_loop() {
-        slide.home();
+//        Disabled until Limit Switch is installed on robot
+//        slide.home();
     }
 
     @Override
