@@ -35,6 +35,9 @@ public class Main extends OpMode {
         wristHandler = new TickHandler(0.01, intake::setWrist, intake::getWrist);
         slideHandler = new TickHandler(0.02, slide::setPosition,
                 () -> { return (double) slide.getPosition(); });
+
+        telemetry.addData("ENCODER VALUE FOR SLIDE: ", slide.getPosition());
+        telemetry.update();
     }
 
     @Override
@@ -81,7 +84,9 @@ public class Main extends OpMode {
 
         /* --- GAMEPAD 2 --- */
         double slideInput = deadzone(-gamepad2.right_stick_y, 0.1);
-        slideHandler.handle(slideInput);
+        telemetry.addData("Slide Target", slideHandler.handle(slideInput));
+
+        telemetry.addData("Viper Slide POS: ", slide.getPosition());
 
         if (gamepad2.right_trigger > 0.5) {
             intake.run(true);
@@ -92,7 +97,8 @@ public class Main extends OpMode {
         }
 
         double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
-        wristHandler.handle(wristInput);
+        telemetry.addData("Wrist Target", wristHandler.handle(wristInput));
+        telemetry.addData("Wrist Position", intake.getWrist());
 
         telemetry.update();
     }
