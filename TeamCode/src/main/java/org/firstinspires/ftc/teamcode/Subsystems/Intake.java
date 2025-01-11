@@ -5,6 +5,8 @@ public class Intake {
     final private CRServo intake;
     final private Servo wrist;
 
+    private final double wristIncrement = 0.10;
+
     /**
      * Creates an Intake
      * @param hardwareMap the hardware mapping object
@@ -48,6 +50,48 @@ public class Intake {
             position = 0;
         }
         wrist.setPosition(position);
+    }
+
+    /**
+     * Moves the wrist up by wristIncrement
+     */
+    public void wristUp() {
+        double target = wrist.getPosition();
+
+        if (Double.isNaN(target)) {
+            target = 0;
+        }
+
+        target += wristIncrement;
+
+        if (target > 1.0) {
+            target = 1.0;
+        } else if (target < 0) {
+            target = 0;
+        }
+
+        wrist.setPosition(target);
+    }
+
+    /**
+     * Moves the wrist down by wristIncrement
+     */
+    public void wristDown() {
+        double target = wrist.getPosition();
+
+        if (Double.isNaN(target)) {
+            target = 0;
+        }
+
+        target -= wristIncrement;
+
+        if (target > 1.0) {
+            target = 1.0;
+        } else if (target < 0) {
+            target = 0;
+        }
+
+        wrist.setPosition(target);
     }
 
     /**
