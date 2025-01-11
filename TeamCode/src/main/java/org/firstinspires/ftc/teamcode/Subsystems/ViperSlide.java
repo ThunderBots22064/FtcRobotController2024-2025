@@ -67,6 +67,7 @@ public class ViperSlide {
         }
         int encoderVal = (int) ((ceil - floor) * position) + floor;
         slide.setTargetPosition(encoderVal);
+        slide.setPower(speed);
     }
 
     /**
