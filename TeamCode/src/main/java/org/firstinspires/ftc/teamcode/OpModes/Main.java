@@ -17,7 +17,10 @@ public class Main extends OpMode {
     OnPress orientSwitch;
     OnPress orientReset;
 
-    TickHandler wristHandler;
+    OnPress wristUp;
+    OnPress wristDown;
+
+//    TickHandler wristHandler;
 //    TickHandler slideHandler;
 
     @Override
@@ -32,7 +35,10 @@ public class Main extends OpMode {
         orientSwitch = new OnPress();
         orientReset = new OnPress();
 
-        wristHandler = new TickHandler(0.01, intake::setWrist, intake::getWrist);
+        wristUp = new OnPress();
+        wristDown = new OnPress();
+
+//        wristHandler = new TickHandler(0.01, intake::setWrist, intake::getWrist);
 //        slideHandler = new TickHandler(0.02, slide::setPosition,
 //                () -> { return (double) slide.getPosition(); });
 
@@ -96,8 +102,14 @@ public class Main extends OpMode {
             intake.stop();
         }
 
-        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
-        telemetry.addData("Wrist Target", wristHandler.handle(wristInput));
+        if (wristUp.pressed(gamepad2.dpad_up)) {
+            intake.wristUp();
+        } else if (wristDown.pressed(gamepad2.dpad_down)) {
+            intake.wristDown();
+        }
+
+//        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
+//        telemetry.addData("Wrist Target", wristHandler.handle(wristInput));
         telemetry.addData("Wrist Position", intake.getWrist());
 
         telemetry.update();
