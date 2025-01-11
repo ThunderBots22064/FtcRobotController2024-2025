@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.*;
 
 @Autonomous(name = "RedNetAuto")
 public class NetAuto extends LinearOpMode{
-    Drivetrain drivetrain;
+    /*Drivetrain drivetrain;
     ViperSlide slide;
     Intake intake;
 
@@ -42,7 +42,7 @@ public class NetAuto extends LinearOpMode{
         strafe_Right(0.5, 0.75);
         slide_Up(0.5,0.75); // too long, maybe half or third
         stop(2);
-         */
+
 
         //edited version
 //        strafe_Left(0.5, 0.75);
@@ -73,8 +73,12 @@ public class NetAuto extends LinearOpMode{
         sleep_sec(0.4);
         drivetrain.stop();
 
-        slide.up();
+//        slide.up();
         sleep_sec(0.10);
-        slide.stop();
-    }
+//        slide.stop();
+
+        */
+        public void runOpMode() {
+
+        }
 }
