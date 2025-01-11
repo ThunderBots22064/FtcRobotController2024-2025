@@ -10,7 +10,7 @@ public class ViperSlide {
     private final TouchSensor floorLimit;
 
     // Define the floor and ceiling of ViperSlide movement
-    private final int ceil = 300;
+    private final int ceil = 2_000;
     private final int floor = 0;
 
     private final double speed = 0.35;
