@@ -10,7 +10,7 @@ public class Intake {
      * @param hardwareMap the hardware mapping object
      */
     public Intake (HardwareMap hardwareMap) {
-        intake = hardwareMap.get(CRServo.class, "claw");
+        intake = hardwareMap.get(CRServo.class, "intake");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
         intake.setDirection(DcMotor.Direction.FORWARD);
