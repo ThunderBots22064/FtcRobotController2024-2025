@@ -23,6 +23,9 @@ public class ViperSlide {
     public ViperSlide(HardwareMap hardwareMap) {
         slide = hardwareMap.get(DcMotor.class, "slide");
 
+//        THIS WILL BREAK HOMING
+        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         slide.setTargetPosition(0);
         slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide.setPower(speed);
