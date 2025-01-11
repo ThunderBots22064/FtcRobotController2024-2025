@@ -13,7 +13,7 @@ public class ViperSlide {
     private final int ceil = 2_000;
     private final int floor = 0;
 
-    private final double speed = 0.35;
+    private final double speed = 0.25;
     private boolean homed = false;
 
     /**
