@@ -32,8 +32,8 @@ public class Main extends OpMode {
         orientSwitch = new OnPress();
         orientReset = new OnPress();
 
-        wristHandler = new TickHandler(0.2, intake::setWrist, intake::getWrist);
-        slideHandler = new TickHandler(50, slide::setPosition,
+        wristHandler = new TickHandler(0.01, intake::setWrist, intake::getWrist);
+        slideHandler = new TickHandler(0.02, slide::setPosition,
                 () -> { return (double) slide.getPosition(); });
     }
 
