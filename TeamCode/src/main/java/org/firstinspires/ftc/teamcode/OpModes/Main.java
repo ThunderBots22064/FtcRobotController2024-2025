@@ -13,13 +13,15 @@ public class Main extends OpMode {
     Imu imu;
     Intake intake;
 
-    boolean fieldOriented = false;
-    OnPress orientSwitch = new OnPress();
-    OnPress orientReset = new OnPress();
+    boolean fieldOriented;
+    OnPress orientSwitch;
+    OnPress orientReset;
 
-    TickHandler wristHandler = new TickHandler(0.2, intake::setWrist, intake::getWrist);
-    TickHandler slideHandler = new TickHandler(50, slide::setPosition,
-            () -> { return (double) slide.getPosition(); });
+    OnPress wristUp;
+    OnPress wristDown;
+
+//    TickHandler wristHandler;
+//    TickHandler slideHandler;
 
     @Override
     public void init() {
@@ -27,11 +29,27 @@ public class Main extends OpMode {
         drivetrain = new Drivetrain(hardwareMap, 0.60);
         imu = new Imu(hardwareMap, true);
         intake = new Intake(hardwareMap);
+
+        fieldOriented = false;
+
+        orientSwitch = new OnPress();
+        orientReset = new OnPress();
+
+        wristUp = new OnPress();
+        wristDown = new OnPress();
+
+//        wristHandler = new TickHandler(0.01, intake::setWrist, intake::getWrist);
+//        slideHandler = new TickHandler(0.02, slide::setPosition,
+//                () -> { return (double) slide.getPosition(); });
+
+        telemetry.addData("ENCODER VALUE FOR SLIDE: ", slide.getPosition());
+        telemetry.update();
     }
 
     @Override
     public void init_loop() {
-        slide.home();
+//        Disabled until Limit Switch is installed on robot
+//        slide.home();
     }
 
     @Override
@@ -72,7 +90,9 @@ public class Main extends OpMode {
 
         /* --- GAMEPAD 2 --- */
         double slideInput = deadzone(-gamepad2.right_stick_y, 0.1);
-        slideHandler.handle(slideInput);
+//        telemetry.addData("Slide Target", slideHandler.handle(slideInput));
+        slide.run(slideInput);
+        telemetry.addData("Viper Slide POS: ", slide.getPosition());
 
         if (gamepad2.right_trigger > 0.5) {
             intake.run(true);
@@ -82,8 +102,15 @@ public class Main extends OpMode {
             intake.stop();
         }
 
-        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
-        wristHandler.handle(wristInput);
+        if (wristUp.pressed(gamepad2.dpad_up)) {
+            intake.wristUp();
+        } else if (wristDown.pressed(gamepad2.dpad_down)) {
+            intake.wristDown();
+        }
+
+//        double wristInput = deadzone(-gamepad2.left_stick_y, 0.1);
+//        telemetry.addData("Wrist Target", wristHandler.handle(wristInput));
+        telemetry.addData("Wrist Position", intake.getWrist());
 
         telemetry.update();
     }

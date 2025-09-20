@@ -7,7 +7,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.Subsystems.*;
 
 @Autonomous(name = "Autotest")
+
 public class Autotest extends LinearOpMode{
+    /*
     private Intake intake;
     private Drivetrain drivetrain;
     private ViperSlide slide;
@@ -87,7 +89,11 @@ public class Autotest extends LinearOpMode{
 
         drivetrain.stop();
         sleep_sec(2);
-         */
+
     }
+    */
+public void runOpMode() {
+
+}
 
 }

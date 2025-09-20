@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.ViperSlide;
 
 @Autonomous(name = "RedObservationAuto")
 public class ObservationAuto extends LinearOpMode {
-    Drivetrain drivetrain;
+    /*Drivetrain drivetrain;
     ViperSlide slide;
 
     private void sleep_sec(double seconds) {
@@ -29,5 +29,8 @@ public class ObservationAuto extends LinearOpMode {
         sleep_sec(0.5);
 
         drivetrain.stop();
+    }*/
+    public void runOpMode() {
+
     }
 }
